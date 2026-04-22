@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud City Shop · the BIG-C</title>
+    <meta name="description" content="Cloud City Shop — a little experiment about want, packaging, and cigarettes. Three.js + scroll-driven CSS transforms.">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Anton&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="sky-band" aria-hidden="true"></div>
+
+<div class="bg-marquee-container" aria-hidden="true">
+        <div class="bg-marquee" id="bg-marquee-content"></div>
+    </div>
+
+<div id="canvas-container" aria-hidden="true"></div>
+
+<main class="ui-layer" role="main">
+
+        <header class="top-bar">
+            <h1 class="title">
+                <span class="title__welcome">WelCome tO</span>
+                <span class="title__brand-row">
+                    <span class="title__brand">CLoUd City</span>
+                    <span class="title__brand-shop">SHOP</span>
+                </span>
+            </h1>
+            <a href="#" class="shop-btn" aria-label="Enter the shop">SHOP</a>
+        </header>
+
+<div class="clicker-container" id="scroll-clicker">
+            <h2 class="clicker-text">
+                <span class="clicker-text__the">The</span>
+                <span class="clicker-text__bigc">BIG-C</span>
+            </h2>
+            <figure class="clicker-box">
+                <img src="MM%201.jpg" alt="The Marlboro Man advertisement — a cowboy lighting a cigarette." />
+            </figure>
+        </div>
+
+    </main>
+
+<footer class="bottom-marquee-container" aria-hidden="true">
+        <div class="bottom-marquee">
+            <span>COP A LIKKLE SUTTIN · DON'T BE A PUSSIO · COP A LIKKLE SUTTIN · DON'T BE A PUSSIO · COP A LIKKLE SUTTIN · DON'T BE A PUSSIO · COP A LIKKLE SUTTIN · DON'T BE A PUSSIO · </span>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

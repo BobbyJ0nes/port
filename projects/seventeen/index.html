@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s e v e n t e e n [ . ] m p 4 / v8</title>
+    <meta name="description" content="seventeen — a candle video rendered as drifting ASCII text over a long prose poem.">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #020a0b;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: default;
+        }
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        #canvas.ready { opacity: 1; }
+
+#source {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+#error {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(2, 10, 11, 0.9);
+            color: #40e0d0;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+            text-align: center;
+            padding: 1.5rem 2rem;
+            border: 1px solid #38b2a8;
+            max-width: 90%;
+            z-index: 10;
+        }
+        #error.show { display: flex; }
+        #error button {
+            cursor: pointer;
+            background: transparent;
+            color: #ff8c42;
+            border: 1px solid #ff8c42;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            letter-spacing: 0.1rem;
+            transition: color 0.3s, background 0.3s;
+        }
+        #error button:hover,
+        #error button:focus-visible {
+            color: #020a0b;
+            background: #ff8c42;
+            outline: 2px solid #ff9ebf;
+            outline-offset: 2px;
+        }
+        ::selection { background: #38b2a8; color: #fff; }
+    </style>
+</head>
+<body>
+
+<video id="source" muted autoplay loop playsinline preload="auto">
+        <source src="candlez.mp4" type="video/mp4">
+    </video>
+
+    <canvas id="canvas" aria-label="A candle flame rendered as drifting ASCII text from a long prose poem."></canvas>
+
+    <div id="error" role="alert">
+        <p id="error-msg">[ AUTOPLAY BLOCKED ]</p>
+        <button id="play-btn" type="button">tap to begin</button>
+    </div>
+
+<script>
+    const rawText = `Seventeen seconds before he locked eyes with his destiny. he mentioned his poor sense of hearing to the Angel at the gate - a scoff in reply with a sly gaze. The blood coursed through his veins. it ran like the stream of tears on the cheeks of a former lover. Friends turned lovers as the sky wept it's remorse. How many times will he find the pot of gold at the end of a falling tree branch. Seventeen. It dawned on him that he smiled at dusk. That he felt skin on his limbs between 0432 and 73. When was it ever this way. He looked up for directions and saw a compass in the sky. The stars pointed him back to Twenty-four. He hadn't been back their till tomorrow. What was to come other than what hasn't happened. He never knew who they were - a child in paradise. A sinner drowns. Many moons passed between the changing tides. Rocks glisten in the shine of despair. smoothed by Seven teens who miss their mother's. Cast a net and see what you catch. What's the catch? Cottage pie in a One-bed flat. Mat told him to never look for answer s with his eyes closed. So he searches with his own. he met a man with an Ampersand, and. They never met again till tomorrow. A tear escaped his sorrow. Bad dreams with severed Teeth. Seven beets and some strong roots. The tree told him which way was up, he was looking for Eve. asleep in a cot of wool. Cash-mere. Ripe mangoes and rotten apples. Bad apples in snow White's grip. Poisoned chalice from which he liked to. Drink. Spirits in his lungs from all the smoke and mirrors. Rose tinted glasses in an antique shop. full of new beginnings. News to him. Rolling tobacco in a pouch of gold coins. Seventeen. He bought three wishes from the tea-pot lady, he overpaid. The genie smiled and wished him well. Fresh water. Salinated spit on the pavement, next to this morning's litter. Seven puppies cry. Robyn Perched on a Mary-go-round. Circles lapping. The mocking-jay laughed. Through the tunnels into the abyss. Mould in the crevices and folds of His time. He made peace with the guards. Lichens. A clown cries of laughter in the corner of the room. dimly lit by the Yesterday's ashes. a curled furl of a sail. change tact. Don't Reach to far, you'll pull a muscle. Cardinal sin. Seven primes. One in the chamber. bullets fly - so can penguins. Light at the end of the tunnel. "have you got one?" The embers of the fire-fly, lit his cigarette. No stone un-turned. A soft gaze that turns her lover into stone. Medusa sings of a writer's folly. Madness in the folds of an a-tuned accordion. Symphonies of broken hearts. strings of harps tugged at the wails of willows qui pleure. a warm embrace of a summer's day. Sun-kissed foreheads and praying lovers. Many times over-cooked. Over-baked loafs of bread. ovens tick down the clock of yesterday's morning. how many chirps of the morning birds ? Minnows loom over the window frame. A brush paints a picture of a split tongue. a canvas cracks at the seams. Nothing's ever as it seems. how much does it cost to pay the price ? tell me so i can settle it. Debtors collecting the daily rent. Home-stead mounting the castle on the hill. A fish's gills breathe in the air of tomorrow's evening as the guitar is tuned, to the sounds of winter's coming. Long hair rests on the shoulder's of giants. Dream catcher's and Charlotte's web of lies. i think i'll find solace in between her thighs. a goodnight kiss on a temple. prayer's ensue. Many time a do over. how many times til it's done right ? Many times a do over. how many nights until the sun rises again. The moon casts another shadow. the tide rises over the baron beaches. The Baron looks to rule over the ruling-class. entrapped and enthralled. Presence in the mind's eye. Presents under the Christmas tree. A kiss under the mistletoe. Five fingers inter-weaved with fish-nets and stolen valour. many men sing their blues in the town choir. A witch is burned at the stake. set ablaze by the web of lies. Crowds form a hoard of flies. moths and butterflies. fragmented truths. fractals and scattered lights through the church's stained pains of glass. a tea-stained one on the window sill. shaken thoughts, re-centred focus. The glass magnifies, the ant dies. Death and despair, illuminated by a bright smile. how many colours do you see when you close your eyes ? 2 truths and 1 lie. 2 memories and 1 could-have-been. many pious preachers but only a single arrogant beggar. Hands cupped - a bucket full of holes. Crabs in a bucket. Stiff necks searching for the way out of here. X marks the spot. A pirate's treasure, stolen love. Glasses stained by looks of lust. A butter knife is sharpened. Clearly misguided. A chosen centrepiece. the chandelier comes crashing down on the marble floor. crash and burn in a hazmat suit. Muddled voices and fractured stares. an open window and Rapunzel's grape-vine. a winning horse. a soft leather saddle and the straw which broke the Camel's back. Content and contempt. Pastures new, sheeps graze. a black one is born A pool of light - turquoise blue. Glass beads on a white sand beach. Beads of sweat glisten. a hard days work and a soft pillows caress. sun kissed and chosen. a sour sentiment but a sweet aftertaste. how many more days before the sun comes back. peering through the clouds - a stairway to heaven. Glances from across the street caught his eye. a size 5 hook and a slip knot. Knotless not. Fresh cut fruit and open wounds. The wolf only hunts at night. a soft caress. the dog wags its tail and the tree barks. full moons, lapping waves - leaping to conclusions. Many moons ago - he'll give it a go. Red lights - a seamstress and a sewing machine. Planting seeds of doubt. Seeds sowed in fertile soil. two clicks noth-east of here. Whisper of tomorrows promise. Hazy visions. unclear paths to the truth. circuits and circus. An elephant balances on a wheel of fortune. He takes a spin. `;
+
+    const chars      = rawText.split('');
+    const canvas     = document.getElementById('canvas');
+    const ctx        = canvas.getContext('2d', { alpha: false });
+    const video      = document.getElementById('source');
+    const errorBox   = document.getElementById('error');
+    const errorMsg   = document.getElementById('error-msg');
+    const playBtn    = document.getElementById('play-btn');
+
+    let imgData = null;
+    let imgCols = 0;
+    let imgRows = 0;
+    const fontSize = 7;
+
+const rowOffsets = [];
+    const rowSpeeds  = [];
+
+const offCanvas = document.createElement('canvas');
+    const offCtx    = offCanvas.getContext('2d', { willReadFrequently: true });
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        imgCols = Math.floor(canvas.width  / fontSize);
+        imgRows = Math.floor(canvas.height / fontSize);
+    }
+
+    function showError(message) {
+        errorMsg.textContent = `[ ${message} ]`;
+        errorBox.classList.add('show');
+    }
+    function hideError() {
+        errorBox.classList.remove('show');
+    }
+
+video.addEventListener('loadeddata', () => {
+        resize();
+        const p = video.play();
+        if (p && p.catch) p.catch(() => showError('TAP TO BEGIN'));
+    });
+    video.addEventListener('playing', () => {
+        canvas.classList.add('ready');
+        hideError();
+    });
+    video.addEventListener('error', () => {
+        showError("COULD NOT DECODE 'candlez.mp4'");
+    });
+
+playBtn.addEventListener('click', () => {
+        video.play().then(() => hideError()).catch(() => {});
+    });
+
+function draw() {
+        requestAnimationFrame(draw);
+
+        if (video.readyState >= 2) {
+            offCanvas.width  = imgCols;
+            offCanvas.height = imgRows;
+            offCtx.drawImage(video, 0, 0, imgCols, imgRows);
+
+            try {
+                imgData = offCtx.getImageData(0, 0, imgCols, imgRows).data;
+            } catch (e) {
+                showError('SECURITY BLOCK · SERVE OVER HTTP');
+                return;
+            }
+        }
+        if (!imgData) return;
+
+        ctx.globalAlpha = 1.0;
+        ctx.fillStyle   = '#020a0b';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font         = `${fontSize}px Courier New`;
+        ctx.textBaseline = 'top';
+
+        for (let y = 0; y < imgRows; y++) {
+            
+            if (rowOffsets[y] === undefined) {
+                rowOffsets[y] = 0;
+                rowSpeeds[y]  = 0.08 + (Math.sin(y * 0.2) * 0.04) + (Math.random() * 0.1);
+            }
+            rowOffsets[y] += rowSpeeds[y];
+            const currentOffset = Math.floor(rowOffsets[y]);
+
+            for (let x = 0; x < imgCols; x++) {
+                const i = (y * imgCols + x) * 4;
+                const r = imgData[i], g = imgData[i + 1], b = imgData[i + 2];
+                const brightness = (r + g + b) / 3;
+
+                ctx.globalAlpha = Math.min(1.0, Math.max(0.05, (brightness / 255) * 1.5));
+
+                if      (brightness < 20)  ctx.fillStyle = '#053f4d'; 
+                else if (brightness < 45)  ctx.fillStyle = '#38b2a8'; 
+                else if (brightness < 90)  ctx.fillStyle = '#ff80a0'; 
+                else if (brightness < 140) ctx.fillStyle = '#ff4d6d'; 
+                else if (brightness < 190) ctx.fillStyle = '#ff8c42'; 
+                else                        ctx.fillStyle = '#ffffff'; 
+
+                let charIndex = (currentOffset + y * imgCols + x) % chars.length;
+                let charToDraw = chars[charIndex];
+                if (Math.random() < 0.005) charToDraw = charToDraw.toUpperCase();
+
+                ctx.fillText(charToDraw, x * fontSize, y * fontSize);
+            }
+        }
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+
+setTimeout(() => {
+        if (video.readyState < 2) {
+            showError('VIDEO TAKING LONGER THAN EXPECTED…');
+        }
+    }, 6000);
+</script>
+</body>
+</html>

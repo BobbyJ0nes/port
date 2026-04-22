@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>À toi</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌹</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #050505;
+      -webkit-user-select: none;
+      user-select: none;
+      filter: sepia(0.07) saturate(1.1);
+    }
+
+    #ascii {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      line-height: 10px;
+      letter-spacing: 2px;
+      color: #00ff41;
+      white-space: pre;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .frame {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: min(70vw, 320px);
+      height: min(70vw, 320px);
+      background: #111;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .title {
+      margin-top: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      letter-spacing: 0.12em;
+      opacity: 0;
+      animation: fadeIn 2s ease 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="ascii"></div>
+  <div class="frame">
+    <div class="container">
+      <video autoplay loop muted playsinline>
+        <source src="rose.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="title">À toi</p>
+  </div>
+
+  <script>
+    
+    const asciiEl = document.getElementById('ascii');
+    const chars = ' .·:;+*#@░▒▓█';
+    let cols, rows;
+
+    function calcGrid() {
+      cols = Math.floor(window.innerWidth / 8);
+      rows = Math.floor(window.innerHeight / 10);
+    }
+    calcGrid();
+
+    let rotY = 0;
+
+    function updateAscii(time) {
+      let output = '';
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const nx = (x / cols - 0.5) * 2;
+          const ny = (y / rows - 0.5) * 2;
+          const dist = Math.sqrt(nx * nx + ny * ny);
+
+          const wave1 = Math.sin(nx * 3 + time * 0.8 + rotY * 2) * 0.5;
+          const wave2 = Math.cos(ny * 4 + time * 0.6 - rotY) * 0.4;
+          const wave3 = Math.sin((nx + ny) * 2.5 + time * 1.2 + rotY * 3) * 0.3;
+          const bloom = Math.max(0, 1 - dist * 1.2) * Math.sin(time * 0.5 + rotY) * 0.5;
+
+          const val = (wave1 + wave2 + wave3 + bloom) * 0.5 + 0.5;
+          const clamped = Math.max(0, Math.min(1, val));
+          output += chars[Math.floor(clamped * (chars.length - 1))];
+        }
+        output += '\n';
+      }
+      asciiEl.textContent = output;
+    }
+
+let targetRotY = 0, currentRotY = 0;
+    let isDragging = false, lastX = 0;
+    let autoRotate = true, autoTimer = null;
+
+    document.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      autoRotate = false;
+      clearTimeout(autoTimer);
+      lastX = e.clientX;
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      targetRotY += (e.clientX - lastX) * 0.008;
+      lastX = e.clientX;
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+      autoTimer = setTimeout(() => { if (!isDragging) autoRotate = true; }, 3000);
+    });
+
+function animate(timestamp) {
+      requestAnimationFrame(animate);
+      const t = timestamp * 0.001;
+
+      if (autoRotate) targetRotY += 0.003;
+
+      currentRotY += (targetRotY - currentRotY) * 0.06;
+      rotY = currentRotY;
+
+      updateAscii(t);
+    }
+
+    requestAnimationFrame(animate);
+
+    window.addEventListener('resize', calcGrid);
+  </script>
+</body>
+</html>

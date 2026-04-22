@@ -1,0 +1,263 @@
+
+
+:root {
+    --bg-green:        #5a8a1e;   
+    --sky-blue:        #b8e6f2;   
+    --title-black:     #0d0d0d;
+    --title-magenta:   #d41ce8;
+    --title-lime:      #5ee639;
+    --shop-green:      #4edc22;
+    --marquee-purple:  #3a2565;
+    --clicker-white:   #ffffff;
+    --clicker-outline: #0d0d0d;
+    --clicker-red:     #e62020;
+    --bar-black:       #0a0a0a;
+    --bar-red:         #e62020;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Anton', system-ui, sans-serif;
+    background-color: var(--bg-green);
+    color: var(--title-black);
+}
+
+.sky-band {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12vh;
+    background: var(--sky-blue);
+    z-index: 0;
+}
+
+.bg-marquee-container {
+    position: fixed;
+    top: 12vh;              
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 12vh - 3.5rem);   
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+.bg-marquee {
+    display: flex;
+    flex-direction: column;
+    animation: scrollVertical 48s linear infinite;
+    font-family: 'Black Ops One', system-ui;
+    color: var(--marquee-purple);
+    font-size: clamp(2rem, 4.8vw, 4rem);
+    line-height: 1.15;
+    white-space: nowrap;
+    opacity: 0.62;
+    text-align: left;
+    padding-left: 1.5rem;
+}
+.bg-marquee span { display: block; }
+
+@keyframes scrollVertical {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.ui-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    pointer-events: none;   
+}
+
+.top-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem clamp(1rem, 3vw, 2.5rem);
+    pointer-events: none;
+}
+
+.title {
+    font-family: 'Anton', sans-serif;
+    line-height: 0.9;
+    letter-spacing: 1px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    pointer-events: none;
+}
+.title__welcome {
+    color: var(--title-black);
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    font-family: 'Anton', sans-serif;
+    text-transform: none;
+    display: block;
+}
+.title__brand-row {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-top: -0.1em;
+}
+.title__brand {
+    color: var(--title-magenta);
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
+    font-family: 'Anton', sans-serif;
+    text-transform: none;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+}
+.title__brand-shop {
+    color: var(--title-lime);
+    font-size: clamp(1.6rem, 3.8vw, 3.4rem);
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    align-self: center;
+}
+
+.shop-btn {
+    font-family: 'Black Ops One', sans-serif;
+    color: var(--shop-green);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    text-decoration: none;
+    letter-spacing: 2px;
+    pointer-events: auto;
+    padding: 0.25rem 0.5rem;
+    transition: transform .15s ease, color .15s ease;
+}
+.shop-btn:hover,
+.shop-btn:focus-visible {
+    transform: scale(1.05);
+    color: #7aff4a;
+    outline: 3px dashed var(--title-magenta);
+    outline-offset: 4px;
+}
+
+.clicker-container {
+    position: absolute;
+    left: clamp(4rem, 12vw, 10rem);
+    top: 42%;
+    transform-origin: center center;
+    pointer-events: auto;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    will-change: transform;
+}
+
+.clicker-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 0 -0.4em 0.5rem;
+    line-height: 1;
+    pointer-events: none;
+}
+.clicker-text__the {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    color: var(--title-black);
+    margin-left: 1.2em;
+    margin-bottom: -0.1em;
+}
+.clicker-text__bigc {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    color: var(--clicker-white);
+    letter-spacing: 2px;
+    
+    text-shadow:
+        2px  2px 0 var(--clicker-outline),
+       -2px  2px 0 var(--clicker-outline),
+        2px -2px 0 var(--clicker-outline),
+       -2px -2px 0 var(--clicker-outline),
+        3px  0   0 var(--clicker-outline),
+       -3px  0   0 var(--clicker-outline),
+        0    3px 0 var(--clicker-outline),
+        0   -3px 0 var(--clicker-outline);
+    transform: translateY(-0.1em) translateX(0.8em);
+}
+
+.clicker-box {
+    margin: 0;
+    width: clamp(140px, 14vw, 200px);
+    height: clamp(140px, 14vw, 200px);
+    background: var(--clicker-red);
+    border: 6px solid var(--clicker-red);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.clicker-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.bottom-marquee-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bar-black);
+    color: var(--bar-red);
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1rem, 1.6vw, 1.5rem);
+    letter-spacing: 2px;
+    padding: 0.55rem 0;
+    z-index: 20;
+    overflow: hidden;
+}
+.bottom-marquee {
+    white-space: nowrap;
+    animation: scrollHorizontal 28s linear infinite;
+}
+.bottom-marquee span {
+    display: inline-block;
+    padding-right: 2rem;
+}
+@keyframes scrollHorizontal {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-marquee,
+    .bottom-marquee {
+        animation: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .title__welcome { font-size: 2.2rem; }
+    .title__brand   { font-size: 2.4rem; }
+    .title__brand-shop { font-size: 1.3rem; }
+    .clicker-container { left: 2rem; top: 38%; }
+    .sky-band { height: 10vh; }
+    .bg-marquee-container { top: 10vh; }
+}

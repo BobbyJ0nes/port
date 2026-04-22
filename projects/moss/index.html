@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSS-TECH - STORE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="glitch-text">
+                <h1 data-text="MOSS-TECH">MOSS-TECH</h1>
+                <div class="subtitle">TEXTURE ARCHIVE</div>
+            </div>
+            <div class="nav">
+                <span class="nav-item blink">SHOP</span>
+                <span class="nav-item">GALLERY</span>
+                <span class="nav-item">CONTACT</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="product-showcase">
+                <div class="product-info">
+                    <div class="product-title">
+                        <span class="product-code">[ID: MSS-001]</span>
+                        <h2>ORGANIC MOSS TEXTURE</h2>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">19.99</span>
+                            <span class="format">.OBJ</span>
+                        </div>
+                    </div>
+
+                    <div class="product-details">
+                        <div class="detail-line">
+                            <span class="label">RESOLUTION:</span>
+                            <span class="value">HIGH-DEF PHOTOGRAMMETRY</span>
+                        </div>
+                        <div class="detail-line">
+                            <span class="label">POLYS:</span>
+                            <span class="value">~50K TRIANGLES</span>
+                        </div>
+                        <div class="detail-line">
+                            <span class="label">TEXTURES:</span>
+                            <span class="value">4K DIFFUSE + NORMAL</span>
+                        </div>
+                        <div class="detail-line">
+                            <span class="label">FORMAT:</span>
+                            <span class="value">OBJ, FBX, GLB</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary pulse">ADD TO CART</button>
+                        <button class="btn-secondary">PREVIEW</button>
+                        <button class="btn-secondary">DOWNLOAD SAMPLE</button>
+                    </div>
+                </div>
+
+                <div class="model-viewer">
+                    <div class="viewer-frame">
+                        <div class="viewer-header">
+                            <span class="viewer-title">3D PREVIEW</span>
+                            <div class="controls">
+                                <span class="control-btn" id="toggle-zoom" title="Toggle Auto-Zoom">◐</span>
+                                <span class="control-btn" id="toggle-rotation" title="Toggle Auto-Rotate">⟲</span>
+                                <span class="control-btn" id="reset-view" title="Reset View">⛶</span>
+                            </div>
+                        </div>
+                        <div class="embed-container">
+                            <div id="threejs-container" class="model-embed"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-section">
+                <div class="section-header">
+                    <span class="section-title">PRODUCT_DESCRIPTION.TXT</span>
+                </div>
+                <div class="terminal-text">
+                    <p>> SCANNING ORGANIC MOSS FORMATIONS ON WEATHERED ROCK SURFACES</p>
+                    <p>> CAPTURED IN HIGH-RESOLUTION PHOTOGRAMMETRY</p>
+                    <p>> PERFECT FOR GAME ENVIRONMENTS, VFX, ARCHITECTURAL VIZ</p>
+                    <p>> AUTHENTIC NATURAL TEXTURES FROM THE UNDERGROUND SCENE</p>
+                    <p>> LICENSE: COMMERCIAL USE ALLOWED</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="social-links">
+                    <span>[DISCORD]</span>
+                    <span>[TWITTER]</span>
+                    <span>[GITHUB]</span>
+                </div>
+                <div class="copyright">
+                    © 2024 MOSS-TECH UNDERGROUND • ALL SCANS AUTHENTIC
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module" src="moss-viewer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

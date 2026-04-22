@@ -1,0 +1,79 @@
+
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #e191e1;
+    margin: 1rem;
+    padding: 0.5rem;
+}
+
+header{
+    background-color: rgb(152, 203, 222);
+    padding: 0em 0rem;
+    margin: 0rem 0rem 2rem 0rem;
+
+display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 90px;
+
+}
+
+header h1{
+    color: #060230;
+    margin: 0;
+    font-family: 'Cairo', wght;
+    font-size: 2rem;
+    padding: 0.5rem
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #05253c;
+}
+
+p {
+    font-size: 1rem;
+    color: #0e3855;
+    strong{
+        font-weight: 700;
+        color: #001d32
+    }
+}
+
+img{
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+}
+
+.hover-box {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.hover-box img{
+    width: 100%;
+    display: block;
+}
+
+.hover-box .hover-gif{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 10;
+}
+
+.hover-box:hover .hover-gif{
+    opacity: 1;
+}

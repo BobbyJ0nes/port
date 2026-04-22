@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بصيرة · basaira — portfolio</title>
+  <meta name="description" content="Portfolio for Coding 3: Web Development Studio. A collection of experiments in HTML, CSS, JavaScript, Three.js and GSAP, framed as short narratives." />
+  <meta name="theme-color" content="#e191e1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✶</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..900&family=Iowan+Old+Style&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">skip to content</a>
+
+  <header class="top" role="banner">
+    <a href="index.html" class="mark" aria-label="basaira, home">
+      <span class="mark__glyph">✶</span>
+      <span class="mark__word">بصيرة</span>
+    </a>
+
+    <nav class="nav" aria-label="primary">
+      <a href="index.html" aria-current="page">work</a>
+      <a href="about.html">about</a>
+    </nav>
+
+    <button
+      id="theme-toggle"
+      class="theme-toggle"
+      type="button"
+      aria-pressed="false"
+      aria-label="toggle light or dark theme">
+      <span aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <main id="main" class="main" role="main">
+
+    <section class="intro" aria-labelledby="intro-h">
+      <p class="intro__eyebrow">coding three · portfolio · 2025–26</p>
+      <h1 id="intro-h" class="intro__title">Storytelling in code.</h1>
+      <h2 class="intro__subtitle">Each piece of work focusses on communicating a story.</h2>
+      <p class="intro__meta">
+        <span>unit: IU000112</span>
+        <span>·</span>
+        <span>year 2 / level 5</span>
+        <span>·</span>
+        <a href="documentation/accessibility.md">accessibility report →</a>
+      </p>
+    </section>
+
+<section class="work" aria-labelledby="work-h">
+      <h2 id="work-h" class="section-title"><span aria-hidden="true">✶ </span>work</h2>
+
+      <ul class="grid" role="list">
+
+        <li class="card">
+          <a href="projects/moss/index.html" class="card__link" aria-label="moss-tech — a Three.js product page for a photogrammetry moss scan">
+            <div class="card__thumb card__thumb--moss" aria-hidden="true">
+              <span class="card__tag">three.js · glb · draco</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 10 · three.js</p>
+              <h3 class="card__title">moss-tech</h3>
+              <p class="card__blurb">a fake shop front for a real 3d scan. orbit controls, terminal type, glitch title.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card">
+          <a href="projects/a_toi/index.html" class="card__link" aria-label="à toi — an ASCII and video meditation with pointer interaction">
+            <div class="card__thumb card__thumb--atoi" aria-hidden="true">
+              <span class="card__tag">canvas · pointer · rAF</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 6/7 · time + events</p>
+              <h3 class="card__title">à toi</h3>
+              <p class="card__blurb">a rose, an ASCII field, and a pointer that drifts.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card">
+          <a href="projects/seventeen/index.html" class="card__link" aria-label="seventeen — a video rendered as drifting ASCII type over a long prose poem">
+            <div class="card__thumb card__thumb--seventeen" aria-hidden="true">
+              <span class="card__tag">canvas · imageData · setInterval</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 6 · javascript for web</p>
+              <h3 class="card__title">seventeen</h3>
+              <p class="card__blurb">a candle, a poem, and one hundred independent row-speeds.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card">
+          <a href="projects/big-C/index.html" class="card__link" aria-label="makaira shop — a three.js interface study with scroll-driven rotation and marquees">
+            <div class="card__thumb card__thumb--bigc" aria-hidden="true">
+              <span class="card__tag">three.js · transforms · scroll</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 3/9/10 · transforms + npm + 3d</p>
+              <h3 class="card__title">makaira shop</h3>
+              <p class="card__blurb">two marquees, a scroll-rotated clicker, a wireframe 3d object.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card">
+          <a href="projects/orion/index.html" class="card__link" aria-label="orion — a short non-linear narrative told through hyperlinks across six pages">
+            <div class="card__thumb card__thumb--orion" aria-hidden="true">
+              <span class="card__tag">semantic html · a11y · hyperlinks</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 2 · anatomy of a web page</p>
+              <h3 class="card__title">orion</h3>
+              <p class="card__blurb">six pages, two branches, one loop. reading as navigating.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card">
+          <a href="projects/basaira/BASAIRA4/index.html" class="card__link" aria-label="basaira — a four-version typographic manifesto evolving from inline styles to external stylesheet">
+            <div class="card__thumb card__thumb--basaira" aria-hidden="true">
+              <span class="card__tag">html · css · iteration</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">week 1 · anatomy of a web page</p>
+              <h3 class="card__title">basaira (v1 → v4)</h3>
+              <p class="card__blurb">a single idea, rewritten four times. the first page of the unit.</p>
+            </div>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="foot" role="contentinfo">
+    <p class="foot__left">
+      <span aria-hidden="true">بصيرة</span> · basaira · coding three portfolio
+    </p>
+    <p class="foot__right">
+      <a href="documentation/accessibility.md">accessibility</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
