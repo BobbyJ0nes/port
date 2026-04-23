@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>archv_tgzt · بصيرة basaira</title>
+  <meta name="description" content="archv_tgzt — a short film presented in a minimal, colour-reactive viewer." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✶</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Iowan+Old+Style&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../_viewer/viewer.css?v=4" />
+</head>
+<body>
+
+  <div class="viewer" data-orientation="landscape" aria-label="archv_tgzt video viewer">
+    <div class="viewer__wash" aria-hidden="true"></div>
+
+    <header class="viewer__top" role="banner">
+      <a href="../../index.html" class="viewer__back" aria-label="back to portfolio">← basaira</a>
+      <span class="viewer__title">archv_tgzt</span>
+      <span aria-hidden="true" style="width:5rem"></span>
+    </header>
+
+    <main class="viewer__stage" role="main">
+      <div class="viewer__frame">
+        <video
+          class="viewer__video"
+          playsinline
+          preload="metadata"
+          aria-label="archv_tgzt short film">
+          <source src="archv_tgzt.mp4" type="video/mp4" />
+          Your browser does not support this video.
+        </video>
+
+        <div class="viewer__play-overlay is-visible" aria-hidden="true">
+          <button
+            type="button"
+            class="viewer__play-overlay-button"
+            data-viewer-overlay-play
+            aria-label="play video"></button>
+        </div>
+      </div>
+    </main>
+
+    <div class="viewer__controls" role="group" aria-label="video controls">
+      <button type="button" class="viewer__btn" data-viewer-play aria-label="play"></button>
+
+      <input
+        type="range"
+        class="viewer__scrub"
+        min="0"
+        max="1000"
+        step="1"
+        value="0"
+        data-viewer-scrub
+        aria-label="scrub through video" />
+
+      <div class="viewer__vol">
+        <button type="button" class="viewer__btn" data-viewer-mute aria-label="mute"></button>
+        <input
+          type="range"
+          class="viewer__vol-slider"
+          min="0" max="1" step="0.01" value="0.8"
+          data-viewer-volume
+          aria-label="volume" />
+      </div>
+
+      <span class="viewer__time" data-viewer-time>0:00 / 0:00</span>
+    </div>
+  </div>
+
+  <script src="../_viewer/viewer.js?v=4"></script>
+</body>
+</html>

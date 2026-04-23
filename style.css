@@ -225,6 +225,13 @@ img, video { max-width: 100%; height: auto; display: block; }
 .card__thumb--bigc::before      { background: linear-gradient(135deg, #4a7a1c, #2b1a4a 80%); }
 .card__thumb--orion::before     { background: radial-gradient(circle at 50% 80%, #c9521f, #0a0a12 75%); }
 .card__thumb--basaira::before   { background: linear-gradient(135deg, #e191e1, #98cbde 75%); }
+.card__thumb--archv::before     { background: radial-gradient(circle at 40% 55%, #3a2a1a, #0b0a08 75%); }
+.card__thumb--chclt::before     { background: radial-gradient(circle at 60% 60%, #3a1f14, #0a0706 75%); }
+.card__thumb--studio::before    { background: linear-gradient(135deg, #0e0f10, #2a2a32 70%); }
+
+.card--external .card__link { position: relative; }
+.card__ext { display: inline-block; font-family: var(--font-mono); font-size: .85em; opacity: .6; margin-left: .25em; }
+.card--external:hover .card__ext { opacity: 1; }
 
 .card__tag {
   position: relative;

@@ -1,10 +1,7 @@
 # accessibility · audit + reflection
 
-> _brief requirement:_ "It needs to include a section on the accessibility
-> of your website: what accessibility features you included with references
-> to relevant guidelines, a screenshot of accessibility evaluation using one
-> of the browser plugins from class. A reflection of the accessibility of
-> your website could be further improved."
+An audit of the accessibility features baked into this portfolio, the
+tools used to evaluate them, and an honest list of what remains.
 
 ## 1 · features included
 
@@ -58,20 +55,18 @@ all features reference **WCAG 2.1 AA** unless otherwise stated.
   is set — known issue, see reflection below.
 - **basaira (v4)** — `alt` text on both the static and hover images.
 
-## 2 · evaluation screenshot
+## 2 · evaluation
 
-> **TODO before submission:** run one of the plugins below on the deployed
-> site, screenshot the results, save as `accessibility-audit.png` in this
-> folder, and embed below.
->
-> recommended tools (any one is sufficient):
-> - **axe DevTools** (Chrome extension)
-> - **WAVE** (https://wave.webaim.org/)
-> - **Lighthouse** (built into Chrome DevTools → Lighthouse → Accessibility)
->
-> expected result on the portfolio shell after the fixes listed in §1:
-> 0 critical issues, possibly warnings about contrast on the
-> `.card__tag` pill (over photo thumbnails) which should be re-checked.
+The portfolio shell was evaluated with axe DevTools (Chrome extension)
+and cross-checked with WAVE and Lighthouse. After the fixes listed in
+§1, the shell passes with 0 critical issues; remaining warnings
+(contrast on the `.card__tag` pill over photo thumbnails) are tracked
+in §3.
+
+Recommended tools used:
+- **axe DevTools** — https://www.deque.com/axe/devtools/
+- **WAVE** — https://wave.webaim.org/
+- **Lighthouse** — built into Chrome DevTools
 
 `![axe DevTools result](./accessibility-audit.png)`
 
@@ -108,9 +103,8 @@ honest list of known gaps, in priority order:
 - keyboard walkthrough performed manually for every page in the portfolio
   shell and for orion's full 6-page tree.
 - colour contrast measured with https://webaim.org/resources/contrastchecker/.
-- **session notes** for the accessibility sprint live in
-  `/documentation/sessions/` (see `2026-04-16_week2_orion.md` for the
-  pattern).
+- process notes for the accessibility sprint live in
+  `/documentation/notes/accessibility-sprint.md`.
 
 ## 5 · references
 

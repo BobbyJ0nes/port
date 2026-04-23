@@ -1,0 +1,342 @@
+/* shared reactive-video viewer
+   minimal chrome. page background tint is driven by the current frame. */
+
+:root {
+  --v-bg: #0a0a0a;
+  --v-bg-tint: #0a0a0a;
+  --v-ink: #f4eee6;
+  --v-ink-soft: #bfb7aa;
+  --v-rule: rgba(255, 255, 255, 0.14);
+  --v-chrome-bg: rgba(0, 0, 0, 0.38);
+  --v-font: "Iowan Old Style", Georgia, serif;
+  --v-mono: "Space Mono", ui-monospace, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--v-bg);
+  color: var(--v-ink);
+  font-family: var(--v-font);
+  overflow: hidden;
+}
+
+.viewer {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--v-bg-tint, var(--v-bg));
+  transition: background 800ms ease;
+}
+
+/* tint wash: takes the hue of the current video frame.
+   sits behind all content and covers the whole viewport. */
+.viewer__wash {
+  position: fixed; inset: 0;
+  background: var(--v-bg-tint, var(--v-bg));
+  transition: background 800ms ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* top chrome */
+.viewer__top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--v-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--v-ink-soft);
+  opacity: 0.85;
+  transition: opacity 400ms ease;
+}
+.viewer.is-idle .viewer__top { opacity: 0; }
+
+.viewer__back {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.viewer__back:hover, .viewer__back:focus-visible {
+  color: var(--v-ink);
+  border-color: currentColor;
+  outline: none;
+}
+
+.viewer__title {
+  font-family: var(--v-font);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--v-ink);
+}
+
+/* stage */
+.viewer__stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 6rem;
+  overflow: hidden;
+}
+
+.viewer__frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.75);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* the <video> fills the frame's intrinsic box */
+.viewer__video {
+  display: block;
+  max-width: 92vw;
+  max-height: calc(100vh - 9rem);
+  max-height: calc(100dvh - 9rem);
+  width: auto;
+  height: auto;
+  background: #000;
+}
+
+/* portrait orientation (tall sources): constrain height first */
+.viewer[data-orientation="portrait"] .viewer__video {
+  max-height: calc(100vh - 9rem);
+  max-height: calc(100dvh - 9rem);
+  max-width: min(92vw, calc((100vh - 9rem) * 9 / 16));
+  max-width: min(92vw, calc((100dvh - 9rem) * 9 / 16));
+}
+
+/* center play overlay (before first play or when paused and idle) */
+.viewer__play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+.viewer__play-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.viewer__play-overlay-button {
+  all: unset;
+  cursor: pointer;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--v-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms ease, background 200ms ease;
+}
+.viewer__play-overlay-button:hover,
+.viewer__play-overlay-button:focus-visible {
+  transform: scale(1.05);
+  background: rgba(20, 20, 20, 0.75);
+  outline: none;
+}
+.viewer__play-overlay-button svg { width: 26px; height: 26px; display: block; }
+
+/* bottom controls */
+.viewer__controls {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 5;
+  padding: 1rem 1.5rem 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--v-ink);
+  opacity: 1;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.viewer.is-idle .viewer__controls {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+.viewer__btn {
+  all: unset;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  color: var(--v-ink);
+  transition: color 180ms ease, background 180ms ease;
+}
+.viewer__btn:hover,
+.viewer__btn:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+.viewer__btn svg { width: 18px; height: 18px; display: block; }
+
+/* scrub — native <input type="range"> with custom styling */
+.viewer__scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-width: 0;    /* allow collapse inside the 1fr grid track */
+  height: 24px;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+  --pct: 0%;
+}
+.viewer__scrub:focus-visible { outline: none; }
+
+/* chromium / webkit track — gradient provides the “fill” */
+.viewer__scrub::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to right,
+    var(--v-ink) 0%,
+    var(--v-ink) var(--pct),
+    rgba(255, 255, 255, 0.22) var(--pct),
+    rgba(255, 255, 255, 0.22) 100%
+  );
+}
+.viewer__scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px; /* center on 2px track */
+  border-radius: 50%;
+  background: var(--v-ink);
+  border: none;
+  cursor: pointer;
+  transform: scale(0);
+  transition: transform 180ms ease;
+}
+.viewer__scrub:hover::-webkit-slider-thumb,
+.viewer__scrub:active::-webkit-slider-thumb,
+.viewer__scrub:focus-visible::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+/* firefox */
+.viewer__scrub::-moz-range-track {
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.viewer__scrub::-moz-range-progress {
+  height: 2px;
+  border-radius: 1px;
+  background: var(--v-ink);
+}
+.viewer__scrub::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--v-ink);
+  border: none;
+  cursor: pointer;
+  transform: scale(0);
+  transition: transform 180ms ease;
+}
+.viewer__scrub:hover::-moz-range-thumb,
+.viewer__scrub:active::-moz-range-thumb,
+.viewer__scrub:focus-visible::-moz-range-thumb {
+  transform: scale(1);
+}
+
+/* volume */
+.viewer__vol {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.viewer__vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 200ms ease, width 240ms ease;
+}
+.viewer__vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px; height: 10px;
+  background: var(--v-ink);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+.viewer__vol-slider::-moz-range-thumb {
+  width: 10px; height: 10px;
+  background: var(--v-ink);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.viewer__time {
+  font-family: var(--v-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--v-ink-soft);
+  font-variant-numeric: tabular-nums;
+  min-width: 8.5ch;
+  text-align: right;
+}
+
+/* responsive: collapse volume at narrow widths */
+@media (max-width: 640px) {
+  .viewer__controls {
+    grid-template-columns: auto 1fr auto;
+    padding: 0.75rem 1rem 1rem;
+  }
+  .viewer__vol { display: none; }
+  .viewer__time { font-size: 0.65rem; min-width: 7ch; }
+}
+
+/* reduced motion: drop the wash transition */
+@media (prefers-reduced-motion: reduce) {
+  .viewer,
+  .viewer__wash,
+  .viewer__play-overlay,
+  .viewer__controls,
+  .viewer__top { transition: none; }
+}

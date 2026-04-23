@@ -5,3 +5,6 @@ node_modules/
 *.log
 .vscode/
 .idea/
+_shots_tmp/
+/tmp/
+
