@@ -19,16 +19,6 @@ hover.
 - interaction: css-only opacity swap on `:hover` of `.hover-box`, so
   the static cloud photograph becomes a short cloud gif. no javascript.
 
-## accessibility notes
-- both images carry `alt` text; the hover image's alt (`peeks into
-  heaven`) echoes the static one so meaning is preserved if animation
-  fails.
-- hover-only interactions are an a11y soft-spot (no keyboard
-  equivalent). candidate retrofit: trigger the swap on `:focus-within`
-  too.
-- colour contrast: `#0e3855` on `#e191e1` measures 5.1:1 — passes AA
-  for body text but fails AAA.
-
 ## on tools
 Written by hand. No AI involvement.
 

@@ -41,15 +41,6 @@ design rules:
 - **v4** — added the theme-toggle button, `localStorage` persistence,
   aria-pressed state; wired keyboard shortcuts (j/k) to walk the cards.
 
-## accessibility notes
-- full writeup in `/documentation/accessibility.md`. summary:
-  - semantic landmarks + `lang="en"`.
-  - visible focus ring, skip-link, aria-labels on decorative elements.
-  - theme toggle is a real `<button>` with `aria-pressed` reflecting state.
-  - `j/k` keyboard shortcut walks through cards with smooth scroll that
-    falls back to instant under `prefers-reduced-motion`.
-- tested against axe DevTools (result in `accessibility.md`).
-
 ## on tools
 pi was used as a sparring partner for the token system (which custom
 properties to expose, how to name them) and for drafting the boilerplate

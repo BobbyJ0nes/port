@@ -60,19 +60,6 @@ _composition_ of this page is a positioning problem.
   all major elements (title, bag, clicker, marquees, colours, hand
   cursor, bottom bar).
 
-## accessibility notes
-- all marquee content is decorative (repeated slogan); the marquees sit
-  behind the ui and carry `pointer-events: none` so keyboard/touch users
-  aren't snagged by them.
-- the `"SHOP"` element is currently a `<div>` — should become a `<button>`
-  or `<a>` (semantic correction).
-- the scroll-rotation interaction has no keyboard equivalent — fix: add
-  a `keydown` handler for `←` / `→` that nudges the rotation.
-- contrast on `.clicker-text` (white with black stroke on green marquee)
-  is strong (>7:1 when measured against the text-shadow-defined edge).
-  contrast on `.clicker-box` red-on-purple is borderline and should be
-  nudged.
-
 ## on tools
 pi was used to discuss the stacking strategy (three fixed layers, whose
 z-index goes where, how to keep the ui layer click-transparent). the

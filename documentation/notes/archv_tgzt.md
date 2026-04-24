@@ -58,14 +58,6 @@ finishes. `transpose=1` rotates the already-auto-rotated portrait
 decode 90° clockwise so the dominant landscape content reads the
 right way up in every browser.
 
-## accessibility notes
-- captions / transcript are not included yet — **open item**. The
-  clip has ambient audio only, no speech.
-- all controls have `aria-label`s that track state (play ↔ pause,
-  mute ↔ unmute).
-- page respects `prefers-reduced-motion` by dropping the wash-colour
-  transition.
-
 ## on tools
 `ffmpeg` on a vps for the transcode and frame extraction. the viewer
 was written by hand after sketching the bits on paper (scrub geometry,

@@ -34,12 +34,6 @@ quality. CRF is one step tighter than `archv_tgzt` because the clip
 has less high-frequency detail (no sparkles) and compresses more
 kindly.
 
-## accessibility notes
-- captions / transcript are not included yet — **open item**. The
-  clip has ambient audio (speech in the final outdoor scene).
-- same minimal controls and keyboard shortcuts as `archv_tgzt`.
-- page respects `prefers-reduced-motion`.
-
 ## on tools
 `ffmpeg` on a vps for the transcode. the viewer module is shared, so
 this project is effectively one HTML file pointing at the shared

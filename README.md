@@ -30,14 +30,6 @@ study with three.js).
 - **three.js** — `moss-tech`, `makaira`.
 - **gsap** — intro timeline in `moss-tech`.
 
-## accessibility
-
-Targets WCAG 2.1 AA. Semantic landmarks, skip-links, visible
-`:focus-visible`, keyboard shortcuts, light/dark theme with
-`localStorage` persistence, `prefers-color-scheme` and
-`prefers-reduced-motion` respected site-wide. Full audit in
-[`documentation/accessibility.md`](documentation/accessibility.md).
-
 ## on ai use
 
 Parts of this portfolio were built alongside an AI coding agent, used

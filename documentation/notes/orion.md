@@ -41,18 +41,6 @@ loops back to the first. _the web is the medium is the message._
 - **01:10** — audited every `<a>` for a meaningful `aria-label`; added
   `meta description` per page.
 
-## accessibility notes
-- every link has a meaningful `aria-label` (e.g. "follow the warm orange
-  glow to the lighter") describing where it leads.
-- skip-link at the top of every page; visible on focus.
-- semantic structure: one `<h1>` per page, `<main>` landmark, `<nav>` for
-  inter-scene links.
-- mobile breakpoint at 600px; max-width `65ch` for readable line length
-  (WCAG 1.4.8 technique).
-- **limitation:** the experience is text-heavy — fine for screen readers,
-  but the mood relies on typography and gradients that a reader with
-  custom-contrast mode will lose. acceptable trade-off.
-
 ## on tools
 - the narrative text is original creative writing, no ai involvement.
 - css structure and semantic html patterns were discussed with pi

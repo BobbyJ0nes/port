@@ -48,20 +48,6 @@ real photogrammetry scan of moss (`10_1_2025.glb`).
 - **v5** — added auto-rotate toggle, reset view; polished lighting
   (dropped ambient from 1.0 → 0.8 so the directional gets a chance).
 
-## accessibility notes
-- the three.js canvas is decorative _preview_ — the critical product
-  information is in the html siblings (product title, price, details),
-  which are all text and fully screen-reader-accessible.
-- the viewer buttons are currently `<span>` elements with `title`
-  attributes — **open item:** convert to `<button>` with `aria-pressed`
-  on the auto-rotate toggle.
-- the glitch animation on the title runs unconditionally; the fix is
-  to wrap it in `@media (prefers-reduced-motion: no-preference)`
-  (scheduled in the accessibility sprint).
-- orbit controls use pointer events — work with mouse, touch, pen.
-  no keyboard equivalent yet (three.js doesn't provide one out of the
-  box); a real fix would map arrow keys to camera rotation.
-
 ## on tools
 pi was used to debug the DRACO decoder path (had the wrong version
 string initially) and to suggest the bounding-box recenter pattern for

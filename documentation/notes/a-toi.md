@@ -38,22 +38,6 @@ waits, then drifts back.
 - **v5** — tuned `0.008` drag sensitivity and `0.06` smoothing until
   it felt like turning a record rather than a knob.
 
-## accessibility notes
-- pointer events cover mouse / touch / pen in a single api — the
-  interaction works identically on all three.
-- **known issue:** `user-scalable=no` is set in the `<meta viewport>`,
-  which disables pinch-zoom. violates WCAG 1.4.4 (resize text). the
-  fix (tracked in `accessibility.md`) is to remove `user-scalable=no`
-  and recompute the grid on `visualViewport` resize.
-- there is no keyboard equivalent for the drag interaction — the field
-  is decorative, so this is an acceptable exception, but a
-  `left`/`right`-arrow keyboard nudge would be a small, correct addition.
-- the video carries no audio; no captioning required.
-- contrast between the ascii field (`#00ff41` at `opacity: 0.3`) on the
-  `#050505` background is deliberately low — the text is decoration, not
-  content, and the only text that is content (`à toi`, `Cormorant Garamond`
-  italic, 45% white on near-black) measures 7.9:1 — passes AAA.
-
 ## on tools
 pi was used to discuss the smoothing maths (the `current += (target - current) * k`
 pattern) and to suggest `pointer*` events over `mouse*`/`touch*` pairs. the

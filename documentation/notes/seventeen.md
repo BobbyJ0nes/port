@@ -53,19 +53,6 @@ drifting at a different speed, still read as _one thing_?
   `errorShown: false` with no manual intervention. screenshot saved
   to `projects/seventeen/verify_screenshot.png`.
 
-## accessibility notes
-- the canvas is visual-only and is marked `aria-hidden` where
-  appropriate (to add). the poem text is the _prose_ being rendered,
-  so a visually-hidden `<div>` with the raw poem should be placed
-  before the canvas as a textual alternative — **open item** (see
-  `accessibility.md` §3).
-- no keyboard interaction required; the piece is contemplative.
-- autoplay is attempted but gracefully fails — the fallback file-picker
-  is a real `<input type="file">` that keyboard users can reach via tab.
-- colour contrast on text is not measured in the usual way (the "text"
-  is the image) — the palette is designed for visual mood, not for
-  reading. this is an intentional exception and is noted in the audit.
-
 ## on tools
 - the poem text is original creative writing, drafted by hand before the
   piece was built.

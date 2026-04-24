@@ -34,16 +34,6 @@ every 6 seconds — an attention ping, not a nag.
 - **v3** — tuned the stagger values; `-=0.2` overlap gives the reveal
   momentum without blurring the beats.
 
-## accessibility notes
-- **prefers-reduced-motion** honoured — no animation runs when the
-  user has asked not to see them.
-- gsap does not change the accessible name / role of any element;
-  elements fade in from `opacity: 0`, so screen-reader order remains
-  the original DOM order.
-- the pulse ping is subtle (`scale: 1.03`) and infrequent (every 6s),
-  so it does not cause motion-sickness risk (WCAG 2.3.3 — animation
-  from interactions).
-
 ## on tools
 pi was used to review the timeline structure and to remind me of the
 `stagger` syntax i always forget. every line of the gsap code was

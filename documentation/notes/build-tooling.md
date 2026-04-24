@@ -76,12 +76,6 @@ portfolio) but the _understanding_ is documented here.
   real esm imports.
 - **next** — optional: migrate to vite for a bundled deploy if useful.
 
-## accessibility notes
-infrastructure-focused; no direct a11y implications on the page. one
-small note: the _choice_ of import maps over a bundled build means the
-raw, readable source is what's served, so assistive-tech users who read
-source (rare but real) see the same code that was written.
-
 ## on tools
 pi was used to double-check import-map syntax (particularly the
 trailing-slash rule for `three/addons/`) and to suggest playwright
