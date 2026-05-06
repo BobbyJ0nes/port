@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ANIMUS — variant 6 of the article writeup. Revised "Lab notebook / Distill" cut.
+  Single-column centred, no margin commentary. Sticky section nav.
+  Bar chart + reasoning explorer kept. Radar (with table toggle) added.
+  Vanilla HTML / CSS / ES modules. No build step. Run via
+  `python -m http.server 5186 --directory <path> --bind 127.0.0.1`.
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>animus · the user-model layer · بصيرة basaira</title>
+  <meta name="description" content="A multi-model BFI scoring experiment — and what it surfaced about the models themselves. The technical / lab-notebook cut, revised." />
+  <meta name="theme-color" content="#c9521f" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✶</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..900&family=Iowan+Old+Style&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <script type="importmap">
+  { "imports": {
+    "pretext": "https://cdn.jsdelivr.net/npm/@chenglou/pretext/+esm"
+  }}
+  </script>
+</head>
+<body>
+
+<a href="#main" class="skip-link">skip to content</a>
+
+<header class="top" role="banner">
+  <a href="../../" class="mark" aria-label="basaira, home">
+    <span class="mark__glyph">✶</span>
+    <span class="mark__word">بصيرة</span>
+  </a>
+  <nav class="nav" aria-label="primary">
+    <a href="../">← blog</a>
+    <a href="#main" aria-current="page">essay</a>
+    <a href="#fig-radar">data</a>
+    <a href="#s7">colophon</a>
+  </nav>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="toggle light or dark theme">
+    <span aria-hidden="true">☾</span>
+  </button>
+</header>
+
+<!-- Sticky horizontal section nav. Highlights active section as the reader scrolls. -->
+<nav class="section-nav" id="section-nav" aria-label="article sections">
+  <ol class="section-nav__list">
+    <li><a href="#s1" data-section-target="s1"><span class="section-nav__num">1.0</span><span class="section-nav__title">the itch</span></a></li>
+    <li><a href="#s2" data-section-target="s2"><span class="section-nav__num">2.0</span><span class="section-nav__title">what i tried</span></a></li>
+    <li><a href="#s3" data-section-target="s3"><span class="section-nav__num">3.0</span><span class="section-nav__title">what surprised me</span></a></li>
+    <li><a href="#s4" data-section-target="s4"><span class="section-nav__num">4.0</span><span class="section-nav__title">what i now believe</span></a></li>
+    <li><a href="#s5" data-section-target="s5"><span class="section-nav__num">5.0</span><span class="section-nav__title">where this points</span></a></li>
+    <li><a href="#s6" data-section-target="s6"><span class="section-nav__num">6.0</span><span class="section-nav__title">the shape</span></a></li>
+    <li><a href="#s7" data-section-target="s7"><span class="section-nav__num">7.0</span><span class="section-nav__title">colophon</span></a></li>
+  </ol>
+</nav>
+
+<noscript>
+  <div class="noscript-note">
+    this page is a writeup with several interactive figures (charts, a reasoning explorer, a radar).
+    they require javascript. the prose still reads end-to-end without it.
+  </div>
+</noscript>
+
+<main id="main" class="main" role="main">
+
+  <!-- =====================================================================
+       0.0  HEADER / HOOK
+       ===================================================================== -->
+  <section class="intro" aria-labelledby="intro-h">
+    <p class="intro__eyebrow">essay 001 · jan 2026 · lab notebook cut</p>
+    <h1 id="intro-h" class="intro__title">ANIMUS — the <em>user-model</em> layer.</h1>
+    <h2 class="intro__subtitle">I gave LLMs my journal. An experiment in scoring my psychological profile from open questionnaire data. The models diverge.</h2>
+    <p class="intro__lede">
+      I ran the same open-ended questionnaire, twelve questions ~3000 words — through Claude Opus 4.5,
+      Gemini 3-Pro and Gemini 3-Flash. Comparing model scoring of BFI trait matrix with standardised
+      psychometric tests. The findings point to the importance of the data layer (context) for agent efficacy.
+    </p>
+    <p class="intro__meta">
+      <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+      <span>method · <a href="/notes/animus/ANIMUS-Methods">ANIMUS-Methods</a></span>
+      <span>n · 6 chats / 3 models</span>
+      <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+      <span>source · <a href="/notes/animus/" target="_blank" rel="noopener" data-no-popover="true">animus vault</a></span>
+    </p>
+  </section>
+
+  <!-- =====================================================================
+       1.0  THE ITCH
+       ===================================================================== -->
+  <article class="lab" aria-labelledby="article-h">
+    <h2 id="article-h" class="visually-hidden">animus — full writeup</h2>
+
+    <section class="lab-section" id="s1" data-fieldnote="1-0">
+      <header class="lab-section__head">
+        <span class="lab-section__num">1.0</span>
+        <h3 class="lab-section__title">the itch</h3>
+        <p class="lab-section__sub">why bother building a profile at all.</p>
+      </header>
+
+      <div class="lab-section__body">
+
+        <p>
+          I'd been journaling for a while, compiling. Notes
+          on projects, internal arguments with myself about direction, looped drafts of
+          who I want to be in five years. The thing about that volume of self-text is
+          that it sits there, structured for a reader who is also you, and absolutely no one else.
+        </p>
+
+        <p>
+          Around the same time I'd been building agentic stuff for clients. Internal agents,
+          tool-use loops, MCP servers — the boring middleware of LLM applications. The pattern
+          that kept showing up was that <em>the agent's quality is the context's quality</em>.
+          A capable model with bad context will produce confident slop. A modest model with
+          excellent context can be genuinely useful. RAG, skills, tools — they're all
+          variations of the same idea: <strong>better-structured context yields better outputs.</strong>
+        </p>
+
+        <p>
+          Which led to the obvious question. The most important slice of context for a
+          learning system is the user themselves. Their patterns, their resistances, the way they
+          tend to fall off habits, the conditions that produce flow. <span class="ink-soft">If I
+          want an agent to actually help me learn ML fundamentals — not the way it would help anyone,
+          but the way it would help <em>me</em> — it needs more than my prompt. It needs a model of me.</span>
+        </p>
+
+        <p>
+          That's ANIMUS. The user-model layer that the rest of BASAIRA — my broader
+          learning-system project — would sit on top of. This article is the first
+          experiment in that direction: can frontier LLMs build a usable psychological profile
+          from journal-style writing, and what does the variance between them tell us
+          about how the models themselves "think"?
+        </p>
+
+        <p>
+          The framing came from a different place too. I'd been burning out on the
+          standard productivity-tool template — habit trackers, schedulers, dashboards.
+          Things you have to feed before they feed you. The ones that survived in my life
+          weren't structured. Journaling was a notebook and a pen. Reading what interested
+          me and stripping away external inputs such as social media content. The pattern
+          was that the things that worked were the things with low operational friction and
+          high contextual fit. Most learning systems fail to elicit deep, cross-domain
+          learnings — because most systems aren't designed around who you are and how you
+          actually learn.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         2.0  WHAT I TRIED
+         ===================================================================== -->
+    <section class="lab-section" id="s2" data-fieldnote="2-0">
+      <header class="lab-section__head">
+        <span class="lab-section__num">2.0</span>
+        <h3 class="lab-section__title">what i tried</h3>
+        <p class="lab-section__sub">three methods, layered.</p>
+      </header>
+
+      <div class="lab-section__body">
+
+        <h4 class="lab-h4"><span class="lab-h4__num">2.1</span> baseline · standard bfi-2 questionnaire</h4>
+        <p>
+          I sat the standard 60-item BFI-2 from the Colby personality lab. Likert items,
+          1–5 disagree-agree. The questionnaire returns a 5-trait summary plus 15 facet
+          subscores. This is the reference point — the format that decades of personality
+          research has validated. It also has known biases (social desirability, item
+          framing, the surface-level read of self-perception).
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">2.2</span> open-ended depth questionnaire</h4>
+        <p>
+          I gave Claude Opus 4.5 a bunch of context of the ANIMUS / BASAIRA ecosystem I had
+          in mind, and the role of a psychometric profile within it — and got it to create a
+          journal-prompt-like question set, the answers of which would form the data for the
+          model scoring. The questions were split across five domains:
+        </p>
+        <ul class="lab-list">
+          <li>learning &amp; cognition</li>
+          <li>motivation &amp; resistance</li>
+          <li>structure &amp; spontaneity</li>
+          <li>risk &amp; decision-making</li>
+          <li>energy &amp; rhythm</li>
+        </ul>
+        <p>
+          I answered conversationally, with limited (ideally zero) filter, in one sitting.
+          The answers came to ~2,800 words — forming my test dataset. The full question set
+          can be found at the
+          <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+          <a href="/notes/animus/Baseline-depth-questionnaire">depth questionnaire</a>.
+        </p>
+
+        <p class="lab-pull">
+          Open-ended question prompts invite evidence, as opposed to self-rating (as found
+          in standardised tests). Instead of scoring your own behaviour, you describe your
+          own cognitive and behavioural patterns — that itself is the data.
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">2.3</span> multi-model scoring</h4>
+        <p>
+          I dropped the entire questionnaire-and-answers document into a fresh chat and
+          asked each model to score me on the BFI matrix. No system prompt. No structured
+          output. T=1 where exposed (the Gemini console). I ran two independent chats per
+          model across three models — six scorings in total — to capture both intra-model
+          consistency (same model, two runs) and inter-model variance (different models, same
+          input). The exact prompt:
+        </p>
+
+        <figure class="figure figure-code" id="fig-prompt">
+          <pre class="codeblock"><code id="prompt-block"></code></pre>
+          <figcaption>
+            <span class="fig-num">Figure 2.3 ·</span>
+            the scoring prompt, copied verbatim from
+            <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+            <a href="/notes/animus/BFI-self-evaluation"><code>BFI self-evaluation.md</code></a>.
+            no system prompt, no constrained output, no temperature override beyond
+            the chat UI default. minimal scaffolding by design — the experiment is
+            partly about what the model brings on its own.
+          </figcaption>
+        </figure>
+
+        <p>
+          The constraint is intentional. I wanted to measure what each model does
+          when handed an unstructured task and an unstructured input. Adding skills,
+          rubrics or system prompts would tighten the scoring; it would also smother
+          the model-personality signal I was hoping to detect.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         3.0  WHAT SURPRISED ME
+         ===================================================================== -->
+    <section class="lab-section" id="s3" data-fieldnote="3-0">
+      <header class="lab-section__head">
+        <span class="lab-section__num">3.0</span>
+        <h3 class="lab-section__title">what surprised me</h3>
+        <p class="lab-section__sub">findings, in order of interest to me.</p>
+      </header>
+
+      <div class="lab-section__body">
+
+        <h4 class="lab-h4"><span class="lab-h4__num">3.1</span> the journal beat the likert — but only on certain traits</h4>
+
+        <p>
+          The first finding was specific. On well-defined, internally-rated traits —
+          intellectual curiosity, anxiety, productiveness — the Likert and the
+          LLM-of-journal converged. Same profile, same broad picture. On
+          <em>context-dependent</em> traits — respectfulness, energy, organisation,
+          emotional volatility — they diverged dramatically.
+        </p>
+
+        <p>
+          Pick organisation. The Likert returned a mid-high score. The LLM average came in
+          markedly lower — not because one is wrong, but because they were measuring different
+          things. Self-assessment captures your sense of how organised you are; the journal
+          captures how organisation actually plays out under real conditions — the
+          project-switching, the variable momentum, the structure that builds and dissolves
+          across different cognitive states. Two different reads. Both true.
+          <strong>The format chose what to look at.</strong>
+        </p>
+
+        <p>
+          Same shape on energy levels: Likert 94, LLM average 44.5. The Likert measures
+          potential energy — how I would describe myself on a good day. The journal surfaces
+          the actual pattern: state-dependent, variable, structured around sleep and the
+          conditions that produce flow.
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">3.2</span> the models disagreed in legible ways</h4>
+
+        <p>
+          The second finding was less expected. The six scorings did not look like draws
+          from a single noisy distribution. They looked like draws from three distributions —
+          one per model — each with its own mean, its own variance, and its own narrative voice.
+        </p>
+
+        <p>
+          Opus was conservative. Across both chats, the average absolute drift between
+          its two scorings was 4.45 points. It avoided extremes. It stayed close to 50
+          where evidence was thin. It used balanced language: <em>"moderate-elevated",
+          "low-average", "this is where the internal friction lives"</em>. It refused to
+          pathologise. The Anthropic model persona they've RL trained into their models —
+          measured, evidence-grounded, careful with downside — is visible in the conservative
+          scoring patterns (relative to the Google models).
+        </p>
+
+        <p>
+          Gemini 3-Pro was dramatic. Average intra-model drift: 8.0 points. It produced
+          archetypes: <em>"The Chaos Pilot", "The Perfectionist's Burden", "The Visionary
+          Architect"</em>. It moved further from 50 in both directions. Chat 2 was
+          systematically more severe than Chat 1 — depression jumped +20, organisation
+          dropped -15. Same model, same input, same temperature, two different chats:
+          one mood.
+        </p>
+
+        <p>
+          Flash was technical. Average drift: 5.5 points. It anchored
+          tightly on Open-Mindedness facets (perfect agreement across chats: 98, 88, 96)
+          but swung wildly on ambiguous ones (depression +25 between its two chats, the
+          largest single intra-model swing in the dataset). Its language was clinical:
+          <em>"psychometric analysis", "high-volatility conscientiousness", "neurodivergent
+          (ADHD) high-performers", "cognitive exoskeleton"</em>. Frameworks were its
+          handle. When the data was clean, it locked on. When the data was ambiguous, it
+          defaulted to whichever framework matched first.
+        </p>
+
+        <!-- CROSS-MODEL CHART (renumbered to 3.0) -->
+        <figure class="figure figure-chart" id="fig-chart">
+          <div class="chart" id="chart-widget">
+            <div class="chart__head">
+              <div class="chart__pickers">
+                <label class="chart__label" for="chart-trait">facet</label>
+                <select id="chart-trait" class="chart__select"></select>
+              </div>
+              <div class="chart__readout" id="chart-readout">—</div>
+            </div>
+            <div class="chart__svg-wrap">
+              <svg id="chart-svg" viewBox="0 0 600 280" role="img" aria-labelledby="chart-svg-title">
+                <title id="chart-svg-title">cross-model bar chart</title>
+              </svg>
+            </div>
+            <p class="chart__legend">
+              <span><i class="swatch swatch--anthropic"></i> anthropic · opus</span>
+              <span><i class="swatch swatch--google"></i> google · gemini-pro</span>
+              <span><i class="swatch swatch--google-flash"></i> google · gemini-flash</span>
+              <span><i class="swatch swatch--baseline"></i> baseline · likert bfi-2</span>
+            </p>
+          </div>
+          <figcaption>
+            <span class="fig-num">Figure 3.0 ·</span>
+            inter-model agreement on a single facet. n = 6 chats across 3 models;
+            baseline shown for reference. the standard deviation under the title
+            updates with the selected trait. the same person; the spread is the model.
+          </figcaption>
+        </figure>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">3.3</span> a cross-provider directional bias</h4>
+
+        <p>
+          The Gemini-Pro and Gemini-Flash models (both from Google DeepMind) largely agreed
+          with one-another — a mean inter-Google difference of 4.4 points across dimensions.
+          Disagreed with Opus in a consistent direction:
+        </p>
+
+        <ul class="lab-list">
+          <li>open-mindedness scored <strong>+9.0</strong> higher across Google models</li>
+          <li>extraversion scored <strong>-9.7</strong> lower</li>
+          <li>emotional volatility scored <strong>+17.0</strong> higher</li>
+          <li>creative imagination scored <strong>+11.3</strong> higher</li>
+        </ul>
+
+        <p>
+          This is clearly a calibration difference. The Google models
+          appear to reserve different anchor points — what counts as "very high"
+          intellectual curiosity for Opus (88-92) is "almost certain" for the Gemini family
+          (98). Whether that's training data, RLHF reward shape, or product positioning
+          is speculation. But the effect is consistent enough that, if I were running this
+          for production, I'd note <em>which model</em> produced any given score, the
+          same way you'd note the brand of a calliper.
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">3.4</span> some traits are simply unstable</h4>
+
+        <p>
+          The most legible diagnostic I have isn't the average — it's the standard deviation.
+          Across the six LLM scorings, intellectual curiosity sat between 88 and 98 (SD 3.95);
+          anxiety sat between 65 and 75 (SD 4.03). On those traits, the data was clean,
+          the evidence was direct, and all three models converged. On other traits, the
+          spread was huge: respectfulness 15-40 (SD 9.57), organisation 10-38 (SD &gt; 11),
+          depression 40-65 (SD 9.67), with two of the three models swinging by 20-25 points
+          between their own two chats — the largest intra-model swings in the dataset.
+        </p>
+
+        <p>
+          The hypothesis that fits the data is that <em>variance is a property of the
+          question, not the model</em>. When the journal text contains direct evidence
+          (intellectual curiosity is a parade of "I read X, I synthesise Y, I dive deep
+          into Z"), all three models pick it up and score similarly. When the evidence
+          is inferential — depression has to be guessed at from "negative spirals" without
+          frequency markers — each model fills the gap differently. <strong>Models
+          extrapolate to fit their own biases when the data is thin.</strong> If you want
+          stable scoring on those traits, the right move isn't a better model. It's
+          a better question.
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">3.5</span> the reasoning was the data</h4>
+        <p>
+          Each model also wrote a paragraph of reasoning per facet — its evidence column.
+          Reading them side by side is the most useful diagnostic I have. The facet score is a
+          number; the reasoning trace is the model showing how it got there. These notes reminded
+          me that the utility was not in the output data itself, but the models' ability to
+          interpret the data — and reason through tasks with these findings in their working
+          context. Various interpretations of the same sentence, weighted differently,
+          foregrounded differently. Pick a facet below and step through the chains. The numbers
+          may converge or diverge; the language always says something specific about what the
+          model decided to look at.
+        </p>
+
+        <!-- REASONING EXPLORER -->
+        <figure class="figure figure-reasoning" id="fig-reasoning">
+          <div class="reasoning" id="reasoning-widget">
+            <div class="reasoning__head">
+              <label class="reasoning__label" for="reasoning-facet">facet</label>
+              <select id="reasoning-facet" class="reasoning__select"></select>
+            </div>
+            <nav class="reasoning__tabs" role="tablist" aria-label="model">
+              <button class="reasoning__tab" data-model="opus-c1"  aria-selected="true"  role="tab">opus 4.5 · c1</button>
+              <button class="reasoning__tab" data-model="opus-c2"  aria-selected="false" role="tab">opus 4.5 · c2</button>
+              <button class="reasoning__tab" data-model="pro-c1"   aria-selected="false" role="tab">gemini 3-pro · c1</button>
+              <button class="reasoning__tab" data-model="pro-c2"   aria-selected="false" role="tab">gemini 3-pro · c2</button>
+              <button class="reasoning__tab" data-model="flash-c1" aria-selected="false" role="tab">flash 3-prev · c1</button>
+              <button class="reasoning__tab" data-model="flash-c2" aria-selected="false" role="tab">flash 3-prev · c2</button>
+            </nav>
+            <div class="reasoning__panel">
+              <div class="reasoning__score" id="reasoning-score">—</div>
+              <blockquote class="reasoning__evidence" id="reasoning-evidence">—</blockquote>
+            </div>
+          </div>
+          <figcaption>
+            <span class="fig-num">Figure 3.2 ·</span>
+            the evidence column. each cell is verbatim from
+            <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+            <a class="lab-link--highlight" href="/notes/animus/BFI-self-evaluation"><code>BFI self-evaluation.md</code></a> —
+            the actual reasoning text the model produced alongside its numerical score.
+            no editing.
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4.0  WHAT I NOW BELIEVE
+         ===================================================================== -->
+    <section class="lab-section" id="s4" data-fieldnote="4-0">
+      <header class="lab-section__head">
+        <span class="lab-section__num">4.0</span>
+        <h3 class="lab-section__title">what i now believe</h3>
+        <p class="lab-section__sub">three working hypotheses.</p>
+      </header>
+
+      <div class="lab-section__body">
+
+        <h4 class="lab-h4"><span class="lab-h4__num">4.1</span> models are instruments, not oracles</h4>
+        <p>
+          A frontier LLM scoring a person from 3,000 words of journal is, methodologically,
+          much closer to a clinician's interpretation than to a psychometric instrument.
+          The number is the output, but the reasoning is the meaningful part. Treating any
+          single score as the answer ignores the variance you can see in Figure 6.0 — and
+          variance is information. If three independent models converge on a value, that
+          value is well-evidenced in the source text. If they diverge, the source text
+          is ambiguous and the divergence is the model writing its own bias into the gap.
+          <em>Use ensemble averaging, hold the variance loosely, and treat any single
+          score as a working draft, not a measurement.</em>
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">4.2</span> question design is a methodological variable</h4>
+        <p>
+          The Likert/journal divergence on respectfulness, energy, organisation and
+          emotional volatility wasn't an isolated error. The two formats <em>were
+          measuring different things</em>. A future ANIMUS questionnaire should be
+          deliberate about which mode each item is in. Aspirational vs. observed.
+          Stable trait vs. state. Internal-narrative vs. social-presentation.
+          <em>The questionnaire should be positioned as an instrument; define closely
+          what is to be measured by the questions and the specific phrasing.</em>
+        </p>
+
+        <h4 class="lab-h4"><span class="lab-h4__num">4.3</span> profile-as-calibration, not constraint</h4>
+        <p>
+          The point of the profile isn't to create a box around the user. It's to calibrate
+          agent behaviour. Given a task — "help me gain a deeper understanding of ML
+          fundamentals" — a learning agent without profile context may create a structured
+          curriculum and working framework. With profile context, it knows that I'll bounce
+          if the gap is immediately too large, that the WHY and underlying concepts should
+          be articulated first, that self-directed project-based learning endeavours suit
+          my cognition. The same agent, the same request, different default model behaviour.
+          Context engineering is a core tenet of agentic use-cases. For learning, user-profiling
+          should comprise a core component of agent context.
+        </p>
+
+        <p>
+          That's also the answer to "why bother running 3,000 words through three models".
+          A single Likert-scored summary won't do this. The number 47 for conscientiousness
+          is unhelpful — does that mean rigid-but-tired, or chaotic-but-trying? The journal
+          text says chaotic-but-trying explicitly. The model reading the journal can pick
+          that up; the agent inheriting that profile knows to offer scaffolding rather than
+          schedules. The numbers compress the picture for storage and retrieval, but the
+          picture itself is the writing.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5.0  WHERE THIS POINTS
+         ===================================================================== -->
+    <section class="lab-section" id="s5" data-fieldnote="5-0">
+      <header class="lab-section__head">
+        <span class="lab-section__num">5.0</span>
+        <h3 class="lab-section__title">where this points</h3>
+        <p class="lab-section__sub">into BASAIRA.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          Next steps are unglamorous and largely engineering. I want the experiment off
+          the chat UIs and into a structured pipeline — programmatic API calls, T=0 runs
+          alongside T=1, more models per provider, more passes per model, a wider
+          questionnaire. I want to test whether a layered question design — pass one to
+          establish the broad shape, pass two targeted at the high-variance facets — can
+          shrink the standard deviations on respectfulness and depression. I'd also like
+          to add models from outside the US-Anthropic / US-Google duopoly; the inter-provider
+          patterns I saw in this run are too small a sample to claim much, but they
+          are the most interesting thing the experiment surfaced.
+        </p>
+
+        <p>
+          A second thing I haven't explored is whether the profile changes meaningfully
+          over time. ANIMUS as I've described it produces a static snapshot. A useful
+          version is longitudinal — same questionnaire, same models, monthly. A profile
+          that drifts is more interesting than a profile that holds, and a profile that
+          drifts in legible directions is more interesting still. The experiment to set
+          up that loop is small; the discipline to actually run it for a year is the
+          real cost.
+        </p>
+
+        <p>
+          Above the experiment, the bigger thing it points at is BASAIRA — a learning
+          system that uses ANIMUS-style profiles as calibration for a system that helps
+          the user learn. Not a curriculum, not a tracker. An ecosystem of tools and
+          software built around the user. Personal software is now my default mode of
+          operation. Building tools to bridge gaps in my knowledge, or demos to represent
+          abstract concepts is now commoditised. I'm looking to build the data layer which
+          sits between the user and the surrounding systems and software which serves as
+          calibration. I'm working on a parallel concept at
+          <a class="lab-link--teal" href="https://makaira.ai" target="_blank" rel="noopener">Makaira.ai</a>,
+          where I'm building the data operations layer for the Property Management industry.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         GO DEEPER — invitation into the rabbit-hole wiki.
+         WIKI-LINKS BELOW use local-dev URLs (port 5187). Update for prod deploy.
+         ===================================================================== -->
+    <section class="lab-section lab-section--godeeper" id="s-godeeper" aria-labelledby="godeeper-h">
+      <header class="lab-section__head">
+        <span class="lab-section__num" aria-hidden="true">→</span>
+        <h3 id="godeeper-h" class="lab-section__title">go deeper</h3>
+      </header>
+
+      <div class="lab-section__body">
+        <p class="lab-pull">
+          <em>this article is the finished cut — the field notes, reflection, thinking and process driven writings and raw data are here — in the
+          <a href="/notes/animus/" target="_blank" rel="noopener">animus vault</a>.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         6.0  THE SHAPE — RADAR + TABLE TOGGLE
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s6">
+      <header class="lab-section__head">
+        <span class="lab-section__num">6.0</span>
+        <h3 class="lab-section__title">the shape</h3>
+        <p class="lab-section__sub">five dimensions, seven scoring methods overlaid · or the full matrix as a table.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          The artifact below articulates the scores of the models, as well as from the
+          baseline test. The white line and nodes represent the scores from the standardised
+          BFI questionnaire, the orange lines and nodes represent the scores from Opus, and
+          the teal lines and nodes are the scores from the Gemini models. Hover and click
+          to explore.
+        </p>
+
+        <figure class="figure figure-radar" id="fig-radar">
+          <div class="radar-figure">
+
+            <!-- view-as toggle -->
+            <div class="radar-figure__head">
+              <div class="radar-figure__viewtoggle" role="tablist" aria-label="figure view">
+                <button class="radar-figure__viewbtn" data-view="shape" aria-selected="true"  role="tab">[ shape ]</button>
+                <button class="radar-figure__viewbtn" data-view="table" aria-selected="false" role="tab">[ table ]</button>
+              </div>
+            </div>
+
+            <!-- SHAPE VIEW: presets, radar, small multiples, legend -->
+            <div class="radar-figure__shape" data-view-panel="shape">
+
+              <div class="radar-controls">
+                <span class="radar-controls__label">view:</span>
+                <button class="preset-btn" type="button" data-preset="cloud"      aria-pressed="true">cloud</button>
+                <button class="preset-btn" type="button" data-preset="ensemble"   aria-pressed="false">ensemble</button>
+                <button class="preset-btn" type="button" data-preset="modelMeans" aria-pressed="false">model means</button>
+                <button class="preset-btn" type="button" data-preset="vsBaseline" aria-pressed="false">vs baseline</button>
+              </div>
+
+              <div class="radar-wrap" id="main-radar-wrap">
+                <div class="radar-wrap__head">
+                  <h4 id="main-radar-title" class="radar-wrap__title">BFI radar — five dimensions</h4>
+                  <span id="drilldown-label" class="radar-wrap__sub">five dimensions · 0–100 scale</span>
+                  <a href="#" id="drilldown-back" class="radar-wrap__back" hidden>← back to dimensions</a>
+                </div>
+                <div class="radar-wrap__svg-wrap">
+                  <svg id="main-radar" class="radar-svg" preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+              </div>
+
+              <div id="radar-legend" class="radar-legend" role="note" aria-label="radar legend"></div>
+
+              <div class="small-multiples-wrap">
+                <p class="small-multiples-lede">five dimensions broken into their three facets each. click any panel to drill the main radar into that dimension's facets.</p>
+                <div id="small-multiples" class="small-multiples"></div>
+              </div>
+            </div>
+
+            <!-- TABLE VIEW: full sortable cross-model data table -->
+            <div class="radar-figure__table" data-view-panel="table" hidden>
+              <div class="table-wrap">
+                <table class="data-table" id="data-table">
+                  <caption class="visually-hidden">cross-model bfi scoring matrix</caption>
+                  <thead>
+                    <tr>
+                      <th data-sort="dimension">dimension / facet</th>
+                      <th data-sort="baseline" class="num">baseline</th>
+                      <th data-sort="opus-c1"  class="num">opus c1</th>
+                      <th data-sort="opus-c2"  class="num">opus c2</th>
+                      <th data-sort="pro-c1"   class="num">pro c1</th>
+                      <th data-sort="pro-c2"   class="num">pro c2</th>
+                      <th data-sort="flash-c1" class="num">flash c1</th>
+                      <th data-sort="flash-c2" class="num">flash c2</th>
+                      <th data-sort="llmAvg"   class="num">llm avg</th>
+                      <th data-sort="sd"       class="num">sd</th>
+                      <th data-sort="delta"    class="num">Δ baseline</th>
+                    </tr>
+                  </thead>
+                  <tbody id="data-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <figcaption>
+            <span class="fig-num">Figure 6.0 ·</span>
+            the shape of the data, two views. <em>shape</em> is a five-axis radar with
+            seven scoring methods overlaid (six LLM chats + likert baseline) and small
+            multiples for facet drilldown. <em>table</em> is the full sortable matrix,
+            colour-tinted by absolute distance from 50, dimension rows bolded, facet rows
+            indented. SD is across the six LLM scorings only (baseline excluded). all
+            numbers extracted verbatim from
+            <!-- WIKI-LINK: relative /notes/ — same-origin under bobbyjones.xyz/notes -->
+            <a href="/notes/animus/Inter-Model_Analysis"><code>Inter-Model_Analysis.md</code></a> and
+            <a href="/notes/animus/BFI-self-evaluation"><code>BFI self-evaluation.md</code></a>.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         7.0  COLOPHON
+         ===================================================================== -->
+    <section class="lab-section" id="s7">
+      <header class="lab-section__head">
+        <span class="lab-section__num">7.0</span>
+        <h3 class="lab-section__title">colophon</h3>
+      </header>
+
+      <div class="lab-section__body">
+        <ul class="colophon-list">
+          <li>
+            <span class="colophon-key">stack</span>
+            <span class="colophon-val">vanilla html/css/js · es modules · pretext for text-aware layout</span>
+          </li>
+          <li>
+            <span class="colophon-key">data</span>
+            <span class="colophon-val">n=6 LLM chats · 1 baseline likert · 60-item BFI-2 · one author</span>
+          </li>
+          <li>
+            <span class="colophon-key">models</span>
+            <span class="colophon-val">claude opus 4.5 · gemini 3-pro-preview · gemini 3-flash-preview · all jan 2026</span>
+          </li>
+          <li>
+            <span class="colophon-key">type</span>
+            <span class="colophon-val">iowan old style · cairo · space mono</span>
+          </li>
+          <li>
+            <span class="colophon-key">nav</span>
+            <span class="colophon-val">press <kbd>j</kbd> and <kbd>k</kbd> to navigate · click the section nav at the top to jump · the moon toggles the theme</span>
+          </li>
+          <li>
+            <span class="colophon-key">series</span>
+            <span class="colophon-val">essay 001 of n · next: ANIMUS v2 — programmatic, ensemble-weighted</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </article>
+
+</main>
+
+<!-- shared tooltip — single instance, repositioned on hover -->
+<div id="radar-tooltip" class="radar__tooltip" role="status" aria-live="polite" data-visible="false"></div>
+
+<footer class="foot" role="contentinfo">
+  <p class="foot__left"><span aria-hidden="true">بصيرة</span> · basaira</p>
+  <p class="foot__right">animus · 2026</p>
+</footer>
+
+<!-- application scripts (es modules) -->
+<script type="module" src="app.js"></script>
+<!-- cross-origin popover for wiki links (loads previews from port 5187) -->
+<script type="module" src="popover.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <title>s e v e n t e e n [ . ] m p 4 / v8</title>
     <meta name="description" content="seventeen — a candle video rendered as drifting ASCII text over a long prose poem.">
     <style>
-        body, html {
+        html, body {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -16,10 +16,18 @@
             font-family: 'Courier New', Courier, monospace;
             cursor: default;
         }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Display size is set inline by resize() in JS — fitted to the
+           viewport while preserving the video's intrinsic aspect ratio.
+           No stretching: candle reads true on portrait, landscape, or
+           any viewport in between. */
         #canvas {
             display: block;
-            width: 100%;
-            height: 100%;
             opacity: 0;
             transition: opacity 1.2s ease;
         }
@@ -108,9 +116,30 @@ const rowOffsets = [];
 const offCanvas = document.createElement('canvas');
     const offCtx    = offCanvas.getContext('2d', { willReadFrequently: true });
 
+    // Default to 16:9 until the video metadata lands; updated in
+    // loadedmetadata to the candle's actual ratio.
+    let videoAR = 16 / 9;
+
     function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Fit the canvas to the largest box of `videoAR` that fits the
+        // viewport, with a small bezel so it doesn't bleed edge-to-edge
+        // on mobile. Display size and drawing-buffer size are kept in
+        // lockstep so the ASCII grid stays crisp at every viewport.
+        const bezel = window.innerWidth <= 720 ? 0.96 : 0.98;
+        const vw = window.innerWidth  * bezel;
+        const vh = window.innerHeight * bezel;
+        let w, h;
+        if (vw / vh > videoAR) {
+            h = Math.floor(vh);
+            w = Math.floor(h * videoAR);
+        } else {
+            w = Math.floor(vw);
+            h = Math.floor(w / videoAR);
+        }
+        canvas.style.width  = w + 'px';
+        canvas.style.height = h + 'px';
+        canvas.width  = w;
+        canvas.height = h;
         imgCols = Math.floor(canvas.width  / fontSize);
         imgRows = Math.floor(canvas.height / fontSize);
     }
@@ -122,6 +151,14 @@ const offCanvas = document.createElement('canvas');
     function hideError() {
         errorBox.classList.remove('show');
     }
+
+    // Pin the canvas to the video's intrinsic aspect ratio as soon as
+    // metadata lands, then resize.
+    video.addEventListener('loadedmetadata', () => {
+        const w = video.videoWidth, h = video.videoHeight;
+        if (w && h) videoAR = w / h;
+        resize();
+    });
 
 video.addEventListener('loadeddata', () => {
         resize();

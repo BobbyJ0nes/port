@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>BFI self-evaluation</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB Garamond:wght@400;700&amp;family=EB Garamond:ital,wght@0,400;0,600;1,400;1,600&amp;family=Space Mono:wght@400;600&amp;display=swap"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..900&amp;family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="بصيرة · notes"/><meta property="og:title" content="BFI self-evaluation"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="BFI self-evaluation"/><meta name="twitter:description" content="ANIMUS Methods LLM (Claude) experimentation I wanted to see how a powerful LLM would interpret and lead the Animus project and how they would decipher BFI traits from journal-like question / answer sequences."/><meta property="og:description" content="ANIMUS Methods LLM (Claude) experimentation I wanted to see how a powerful LLM would interpret and lead the Animus project and how they would decipher BFI traits from journal-like question / answer sequences."/><meta property="og:image:alt" content="ANIMUS Methods LLM (Claude) experimentation I wanted to see how a powerful LLM would interpret and lead the Animus project and how they would decipher BFI traits from journal-like question / answer sequences."/><meta property="twitter:domain" content="bobbyjones.xyz/notes"/><meta property="og:url" content="https://bobbyjones.xyz/notes/animus/BFI-self-evaluation"/><meta property="twitter:url" content="https://bobbyjones.xyz/notes/animus/BFI-self-evaluation"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="ANIMUS Methods LLM (Claude) experimentation I wanted to see how a powerful LLM would interpret and lead the Animus project and how they would decipher BFI traits from journal-like question / answer sequences."/><meta name="generator" content="Quartz"/><link href="../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiQzpcXENDTF9CQllcXENsb3VkX2NpdHlfVkFVTFRcXEJBU0FJUkFcXDAxLVByb2plY3RzXFxQb3J0c1xcbm90ZXNfcXVhcnR6XFxxdWFydHpcXGNvbXBvbmVudHNcXHN0eWxlcyIsInNvdXJjZXMiOlsibWVybWFpZC5pbmxpbmUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTs7O0FBS0Y7RUFDRTtFQUNBOzs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMCAwO1xuICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMXMgZWFzZTtcbiAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgICAgbWluLWhlaWdodDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4O1xuXG4gICAgICBwcmUge1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgIH1cblxuICAgICAgc3ZnIHtcbiAgICAgICAgbWF4LXdpZHRoOiBub25lO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICB9XG4gICAgfVxuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRyb2xzIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIGJvdHRvbTogMjBweDtcbiAgICAgIHJpZ2h0OiAyMHB4O1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGdhcDogOHB4O1xuICAgICAgcGFkZGluZzogOHB4O1xuICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMSk7XG4gICAgICB6LWluZGV4OiAyO1xuXG4gICAgICAubWVybWFpZC1jb250cm9sLWJ1dHRvbiB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICAgICB3aWR0aDogMzJweDtcbiAgICAgICAgaGVpZ2h0OiAzMnB4O1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICAgIGNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWJvZHlGb250KTtcbiAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuMnMgZWFzZTtcblxuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICB9XG5cbiAgICAgICAgJjphY3RpdmUge1xuICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU3R5bGUgdGhlIHJlc2V0IGJ1dHRvbiBkaWZmZXJlbnRseVxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XG4gICAgICAgICAgd2lkdGg6IGF1dG87XG4gICAgICAgICAgcGFkZGluZzogMCAxMnB4O1xuICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://bobbyjones.xyz/notes/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://bobbyjones.xyz/notes/animus/BFI-self-evaluation-og-image.webp"/><meta property="og:image:url" content="https://bobbyjones.xyz/notes/animus/BFI-self-evaluation-og-image.webp"/><meta name="twitter:image" content="https://bobbyjones.xyz/notes/animus/BFI-self-evaluation-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="animus/BFI-self-evaluation"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><div class="page-title-wrap"><h2 class="page-title mark"><a href=".." aria-label="basaira notes, home"><span class="mark__glyph" aria-hidden="true">✶</span><span class="mark__word">بصيرة</span></a></h2><p class="back-to-article"><em>← back to <a href="/blog/animus/">the article</a>.</em></p></div><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-5" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../animus/">ANIMUS</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>BFI self evaluation</a></div></nav><h1 class="article-title">BFI self-evaluation</h1><p show-comma="true" class="content-meta"><time datetime="2026-01-12T00:00:00.000Z">Jan 12, 2026</time><span>22 min read</span></p></div></div><article class="popover-hint"><p><a href="../animus/ANIMUS-Methods" class="internal alias" data-slug="animus/ANIMUS-Methods">ANIMUS Methods</a></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132437.png" width="auto" height="auto" alt/></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132454.png" width="auto" height="auto" alt/></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132507.png" width="auto" height="auto" alt/></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132520.png" width="auto" height="auto" alt/></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132533.png" width="auto" height="auto" alt/></p>
+<p><img src="../animus/attachments/Pasted-image-20260110132624.png" width="auto" height="auto" alt/></p>
+<hr/>
+<h1 id="llm-claude-experimentation">LLM (Claude) experimentation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#llm-claude-experimentation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>I wanted to see how a powerful LLM would interpret and lead the Animus project and how they would decipher BFI traits from journal-like question / answer sequences.</p>
+<h2 id="methods">Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#methods" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p>Baseline test (ABOVE)</p>
+<ul>
+<li>Widely respected BFI questionnaire.</li>
+<li>Source
+<ul>
+<li><a href="https://www.colby.edu/academics/departments-and-programs/psychology/research-opportunities/personality-lab/the-bfi-2/" class="external">https://www.colby.edu/academics/departments-and-programs/psychology/research-opportunities/personality-lab/the-bfi-2/<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="https://www.personalitylab.org/" class="external">https://www.personalitylab.org/<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Open (Journal) questionnaire</p>
+<ul>
+<li>
+<p>The ethos for the angle of this questionnaire was to probe information from myself (subject) which gave psychological context and trait evaluation data, whilst investigating more learning-specific areas of psychology.</p>
+</li>
+<li>
+<p><a href="../animus/Baseline-depth-questionnaire" class="internal alias" data-slug="animus/Baseline-depth-questionnaire">Baseline depth questionnaire</a></p>
+</li>
+<li>
+<p>The questionnaire is split into 12 questions across 5 domains:</p>
+<ul>
+<li>Learning &amp; Cognition</li>
+<li>Motivation &amp; Resistance</li>
+<li>Structure &amp; Spontaneity</li>
+<li>Risk &amp; Decision Making</li>
+<li>Energy &amp; Rhythm</li>
+</ul>
+</li>
+<li>
+<p>The questionnaire was generated by a Claude Opus 4.5 (10.01.26 - Claude application interface) instance, and was contextually aware of the Animus and broader Basaira projects and intentions.</p>
+<ul>
+<li><a href="https://claude.ai/share/005ff9d1-ab7e-4b2b-a9c8-1cdc984867b7" class="external">https://claude.ai/share/005ff9d1-ab7e-4b2b-a9c8-1cdc984867b7<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Direct LLM interpretation and BFI scoring</p>
+<ul>
+<li>
+<p>From this dataset of a journal questionnaire, I then asked multiple instances of the same model to evaluate the data and score it according to the same BFI scoring system as above (in the multiple-choice questionnaire).</p>
+</li>
+<li>
+<p>PROMPT :</p>
+<blockquote>
+<p>(pasted) <a href="../animus/Baseline-depth-questionnaire" class="internal alias" data-slug="animus/Baseline-depth-questionnaire">Baseline depth questionnaire</a></p>
+<p>Based on the user’s responses to the above questions, score the user in the BFI trait matrix with the following dimensions (0-100):
+Extraversion   Sociability   Assertiveness   Energy Levels Agreeableness   Compassion   Respectfullness   Trust Conscientiousness   Organisation   Productiveness   Responsibility Negative Emotionality (/ Neurotiscm)   Anxiety   Depression   Emotional Volatility Open-Mindedness   Intellectual Curiosity   Aesthetic Sensitivity   Creative Imagination. Feel free to use any methods you wish (including computational methods if you need)</p>
+</blockquote>
+</li>
+<li>
+<p><a href="https://claude.ai/share/1ba3af51-3108-4230-a345-52221ab98e13" class="external">https://claude.ai/share/1ba3af51-3108-4230-a345-52221ab98e13<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</li>
+<li>
+<p><a href="https://claude.ai/share/b6854bf5-c05e-41b1-ba4a-822ff4305157" class="external">https://claude.ai/share/b6854bf5-c05e-41b1-ba4a-822ff4305157<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p>Opus Scoring :</p>
+<p>Chat 1:</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="claude-opus-45-analysis---chat-1">Claude Opus 4.5 Analysis - Chat 1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#claude-opus-45-analysis---chat-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overview">Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Analyzed psychological traits across five dimensions with evidence-based scoring based on detailed self-reflection responses.</p>
+<hr/>
+<h3 id="dimensional-scoring--analysis">Dimensional Scoring &amp; Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dimensional-scoring--analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-open-mindedness-85100-very-high">1. Open-Mindedness: <strong>85/100</strong> (Very High)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-open-mindedness-85100-very-high" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>88</td><td>”I can ingest and understand, deeply-understand nuanced areas of research and abstract concepts very quickly” — Actively seeks out philosophical reading, consumes expert content across domains, and explicitly enjoys understanding mechanisms and “WHY” behind things.</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>80</td><td>”I am a very good videographer with a specific style and intention” — Clear attention to craft, writing style matters, even pen choice affects output.</td></tr><tr><td><strong>Creative Imagination</strong></td><td>87</td><td>”I make cross-domain connections” — Learning style is explicitly non-linear, experimental, and values unconventional approaches.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: This is the dominant trait by a significant margin.</p>
+<hr/>
+<h4 id="2-negative-emotionality-neuroticism-58100-moderate-elevated">2. Negative Emotionality (Neuroticism): <strong>58/100</strong> (Moderate-Elevated)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-negative-emotionality-neuroticism-58100-moderate-elevated" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>65</td><td>”I feel more anxious and have a lesser self-image as a result of the procrastination” — Performance anxiety is clearly present; fear of failure underlies avoidance patterns.</td></tr><tr><td><strong>Depression</strong></td><td>50</td><td>”negative thoughts and self image which leads to somewhat of a negative spiral” — Describes ruts but has developed protective mechanisms (journaling, lifestyle discipline).</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>58</td><td>”I feel deeply. Especially in relation to work” — Emotional state is tightly coupled to productivity and self-perception, creating variability.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Moderate-elevated. Emotionally self-aware and has built systems to manage this, but the underlying sensitivity is real.</p>
+<hr/>
+<h4 id="3-conscientiousness-47100-low-average">3. Conscientiousness: <strong>47/100</strong> (Low-Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-conscientiousness-47100-low-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>38</td><td>”I do not enjoy rigid, compartmentalised systems which are pre-defined” — Explicitly anti-structure; non-linear learning; abandon systems with high friction.</td></tr><tr><td><strong>Productiveness</strong></td><td>50</td><td>”I frequently procrastinate through avoidance and moving between projects” — Genuine struggle here, BUT also describes periods of deep work when conviction is high.</td></tr><tr><td><strong>Responsibility</strong></td><td>58</td><td>”Long-term I have high aspirations and a clear vision” — Goal-orientation exists; the issue isn’t caring, it’s execution on things that don’t align.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: This is where the internal friction lives. High aspirational standards + variable execution = frustration.</p>
+<hr/>
+<h4 id="4-extraversion-53100-average">4. Extraversion: <strong>53/100</strong> (Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-extraversion-53100-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>48</td><td>”early in the morning or late at night when it is quiet” — Preference for low-stimuli environments; no strong evidence of social energy-seeking.</td></tr><tr><td><strong>Assertiveness</strong></td><td>65</td><td>”I also don’t really respect authority” — Made significant life decisions independently against external pressure; strong internal locus of control.</td></tr><tr><td><strong>Energy Levels</strong></td><td>52</td><td>Highly state-dependent — “My mind becomes quite obsessed and excited” when interested, depleted when not.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Roughly average overall, but the distribution is uneven — higher assertiveness, lower sociability.</p>
+<hr/>
+<h4 id="5-agreeableness-48100-low-average">5. Agreeableness: <strong>48/100</strong> (Low-Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-agreeableness-48100-low-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>55</td><td>Shows considerable self-compassion in reflections; less data on interpersonal compassion specifically.</td></tr><tr><td><strong>Respectfulness</strong></td><td>40</td><td>”I also don’t really respect authority” — Explicit. Prioritises authenticity over conformity.</td></tr><tr><td><strong>Trust</strong></td><td>52</td><td>”being a believer in a higher power and order helps me to offload responsibility” — Some trust in cosmic order, but decisions made with “limited consultation and input from others.”</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Below average but not antagonistic — independent-minded rather than disagreeable.</p>
+<hr/>
+<h3 id="overall-summary-profile">Overall Summary Profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-summary-profile" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trait</th><th>Score</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>85</td><td>Very High</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>58</td><td>Moderate-Elevated</td></tr><tr><td><strong>Extraversion</strong></td><td>53</td><td>Average</td></tr><tr><td><strong>Agreeableness</strong></td><td>48</td><td>Low-Average</td></tr><tr><td><strong>Conscientiousness</strong></td><td>47</td><td>Low-Average</td></tr></tbody></table></div>
+<hr/>
+<h3 id="profile-interpretation">Profile Interpretation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#profile-interpretation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>“Open Explorer” Profile</strong></p>
+<p>You exhibit a textbook “Open Explorer” profile — exceptionally high openness paired with lower conscientiousness creates that characteristic tension you describe: vast intellectual appetite, frustration with execution pace, and a non-linear path that others perceive as risky but feels internally coherent to you.</p>
+<p><strong>Key Insights:</strong></p>
+<ol>
+<li>
+<p><strong>Dominant Trait</strong>: Open-mindedness is your defining characteristic, significantly elevated above all other dimensions.</p>
+</li>
+<li>
+<p><strong>Internal Tension</strong>: The elevated neuroticism tied specifically to productivity (rather than generalised anxiety) is common in this profile — self-worth gets entangled with output quality, which creates both drive and suffering.</p>
+</li>
+<li>
+<p><strong>Independence</strong>: The low agreeableness isn’t about being unkind — it’s about operating from an internal reference frame rather than external validation. That’s what enabled the Warwick decision.</p>
+</li>
+<li>
+<p><strong>Execution Gap</strong>: High aspirational standards combined with variable execution creates the frustration described in responses — the gap between vision and implementation.</p>
+</li>
+<li>
+<p><strong>State-Dependent Performance</strong>: Energy and productivity are highly contingent on interest and alignment with internal values rather than external structure.</p>
+</li>
+</ol>
+<hr/>
+<h2 id="claude-opus-45-analysis---chat-2">Claude Opus 4.5 Analysis - Chat 2<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#claude-opus-45-analysis---chat-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overview-1">Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overview-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Comprehensive psychological profiling analysis based on detailed self-reflection responses, with systematic evaluation across all Big Five dimensions.</p>
+<hr/>
+<h3 id="dimensional-scoring--analysis-1">Dimensional Scoring &amp; Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dimensional-scoring--analysis-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-extraversion-53100-moderate">1. Extraversion: <strong>53/100</strong> (Moderate)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-extraversion-53100-moderate" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>40</td><td>Prefers working “early in the morning or late at night when it is quiet” and avoiding stimuli. Dropped out partly to be “surrounded by people with richer life experience” — suggests quality over quantity in social interaction. Moderate-low sociability.</td></tr><tr><td><strong>Assertiveness</strong></td><td>72</td><td>Strong evidence: “I don’t really respect authority,” made major life decisions with “limited consultation,” high conviction in unconventional paths. Operates from own frame with confidence.</td></tr><tr><td><strong>Energy Levels</strong></td><td>55</td><td>Mixed signals—periods of intense obsession and flow, but also ADHD tendencies, reliance on caffeine/dexamphetamine, and energy depletion from poor inputs.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Moderate overall with uneven distribution — high assertiveness balances lower sociability.</p>
+<hr/>
+<h4 id="2-agreeableness-42100-below-average">2. Agreeableness: <strong>42/100</strong> (Below Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-agreeableness-42100-below-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>48</td><td>Neutral—writing is growth-focused rather than other-focused. Not unkind, but empathy for others isn’t a dominant theme.</td></tr><tr><td><strong>Respectfulness</strong></td><td>35</td><td>Explicitly low deference to authority from childhood. Respects expertise and practitioners but not institutional hierarchy or conventional expectations.</td></tr><tr><td><strong>Trust</strong></td><td>52</td><td>Trusts expert practitioners and consumes their content readily. Belief in higher power suggests some baseline trust. Independent streak moderates this.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Below average but reflects independence rather than antagonism. Distinguishes between institutional authority and earned credibility.</p>
+<hr/>
+<h4 id="3-conscientiousness-44100-below-average">3. Conscientiousness: <strong>44/100</strong> (Below Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-conscientiousness-44100-below-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>35</td><td>Explicitly states: “I don’t track habits, set rigid contracts or tangible goals” — indicates low organizational structure. Works in bursts of intensity rather than consistent systems.</td></tr><tr><td><strong>Productiveness</strong></td><td>50</td><td>Employs strategic approaches like Deep Work and Atomic Habits to optimize mental states and minimize distractions, yet struggles with procrastination and frequently abandons projects. Mixed picture.</td></tr><tr><td><strong>Responsibility</strong></td><td>48</td><td>Acknowledges struggles with client work and past failures while taking ownership of choices and direction. Reflects both accountability and ongoing challenges.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Below average with tension between high aspirations and variable execution. Strategic compensations in place.</p>
+<hr/>
+<h4 id="4-negative-emotionality-neuroticism-65100-above-average">4. Negative Emotionality (Neuroticism): <strong>65/100</strong> (Above Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-negative-emotionality-neuroticism-65100-above-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>68</td><td>Performance anxiety around execution and delivery. “I feel more anxious and have a lesser self-image as a result of the procrastination.” Fear of failure underlying avoidance patterns.</td></tr><tr><td><strong>Depression</strong></td><td>58</td><td>Describes “negative thoughts and self image which leads to somewhat of a negative spiral” and references to “ruts.” Has developed protective mechanisms but underlying tendency present.</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>65</td><td>”I feel deeply”—self-image and emotional state are tightly coupled to productivity. Cycles between obsessive conviction and avoidant shame. High emotional reactivity to own performance.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Above average. Emotional state closely linked to productivity and self-perception, creating cyclical patterns of conviction and avoidance.</p>
+<hr/>
+<h4 id="5-open-mindedness-86100-very-high">5. Open-Mindedness: <strong>86/100</strong> (Very High)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-open-mindedness-86100-very-high" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>92</td><td>Exceptionally high. Voracious consumption of long-form content, deep engagement with AI/ML research, philosophy, mechanisms. “Cross-domain connections” and “deep thinker” self-descriptions are well-evidenced.</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>78</td><td>Strong—videography “with intention” from young age, care about output quality, studying Creative Computing. Has a visual-artistic identity.</td></tr><tr><td><strong>Creative Imagination</strong></td><td>82</td><td>Gravitates toward novelty, experimentation, unconventional paths. Learning style is associative and generative rather than linear.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Exceptionally high across all facets. Dominant characteristic defining the profile.</p>
+<hr/>
+<h3 id="overall-summary-profile-1">Overall Summary Profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-summary-profile-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trait</th><th>Score</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>86</td><td>Very High</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>65</td><td>Above Average</td></tr><tr><td><strong>Extraversion</strong></td><td>53</td><td>Moderate</td></tr><tr><td><strong>Conscientiousness</strong></td><td>44</td><td>Below Average</td></tr><tr><td><strong>Agreeableness</strong></td><td>42</td><td>Below Average</td></tr></tbody></table></div>
+<hr/>
+<h3 id="profile-interpretation-1">Profile Interpretation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#profile-interpretation-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>High Openness + Low Conscientiousness Pattern</strong></p>
+<p>This profile reveals a classic tension pattern between exceptional intellectual curiosity and organizational challenges:</p>
+<p><strong>Core Dynamic:</strong></p>
+<ul>
+<li>Vast intellectual appetite and creative vision</li>
+<li>Struggle with sustained execution required to match the vision</li>
+<li>Gap between vision and output triggers shame/anxiety</li>
+<li>This fuels avoidance, which deepens the cycle</li>
+</ul>
+<p><strong>Key Insight:</strong></p>
+<p>Your solution (broad progress over time, identity-based habits, state optimization) is actually <strong>well-calibrated to this profile</strong> — it works <em>with</em> your natural patterns rather than against them.</p>
+<p><strong>Profile Characteristics:</strong></p>
+<ol>
+<li>
+<p><strong>Dominant Openness</strong>: Intellectual curiosity (92) is exceptionally high, driving constant exploration and cross-domain synthesis.</p>
+</li>
+<li>
+<p><strong>Execution Tension</strong>: Low organization (35) combined with high aspirations creates the described frustration and procrastination patterns.</p>
+</li>
+<li>
+<p><strong>Emotional Reactivity</strong>: Above-average neuroticism (65) is specifically tied to productivity and self-perception rather than generalized anxiety.</p>
+</li>
+<li>
+<p><strong>Independent Operation</strong>: Low respectfulness (35) and high assertiveness (72) indicate strong internal locus of control and resistance to external authority.</p>
+</li>
+<li>
+<p><strong>Strategic Adaptation</strong>: Recognition of these patterns has led to development of compensatory strategies (Deep Work, Atomic Habits, state optimization).</p>
+</li>
+</ol>
+<hr/>
+<h2 id="cross-analysis-comparison">Cross-Analysis Comparison<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cross-analysis-comparison" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overall-dimension-scores-comparison">Overall Dimension Scores Comparison<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-dimension-scores-comparison" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Baseline Test</th><th>Chat 1 (Opus)</th><th>Chat 2 (Opus)</th><th>Average (LLM)</th><th>Δ (Baseline - LLM Avg)</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>92</td><td>85</td><td>86</td><td>85.5</td><td>-6.5</td></tr><tr><td><strong>Extraversion</strong></td><td>77</td><td>53</td><td>53</td><td>53</td><td>-24</td></tr><tr><td><strong>Agreeableness</strong></td><td>67</td><td>48</td><td>42</td><td>45</td><td>-22</td></tr><tr><td><strong>Conscientiousness</strong></td><td>50</td><td>47</td><td>44</td><td>45.5</td><td>-4.5</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>48</td><td>58</td><td>65</td><td>61.5</td><td>+13.5</td></tr></tbody></table></div>
+<hr/>
+<h3 id="facet-level-comparison">Facet-Level Comparison<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#facet-level-comparison" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="open-mindedness-facets">Open-Mindedness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#open-mindedness-facets" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline Test</th><th>Chat 1</th><th>Chat 2</th><th>Average (LLM)</th><th>Δ</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>100</td><td>88</td><td>92</td><td>90</td><td>-10</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>75</td><td>80</td><td>78</td><td>79</td><td>+4</td></tr><tr><td><strong>Creative Imagination</strong></td><td>100</td><td>87</td><td>82</td><td>84.5</td><td>-15.5</td></tr></tbody></table></div>
+<h4 id="extraversion-facets">Extraversion Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#extraversion-facets" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline Test</th><th>Chat 1</th><th>Chat 2</th><th>Average (LLM)</th><th>Δ</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>50</td><td>48</td><td>40</td><td>44</td><td>-6</td></tr><tr><td><strong>Assertiveness</strong></td><td>88</td><td>65</td><td>72</td><td>68.5</td><td>-19.5</td></tr><tr><td><strong>Energy Levels</strong></td><td>94</td><td>52</td><td>55</td><td>53.5</td><td>-40.5</td></tr></tbody></table></div>
+<h4 id="agreeableness-facets">Agreeableness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#agreeableness-facets" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline Test</th><th>Chat 1</th><th>Chat 2</th><th>Average (LLM)</th><th>Δ</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>62</td><td>55</td><td>48</td><td>51.5</td><td>-10.5</td></tr><tr><td><strong>Respectfulness</strong></td><td>88</td><td>40</td><td>35</td><td>37.5</td><td>-50.5</td></tr><tr><td><strong>Trust</strong></td><td>50</td><td>52</td><td>52</td><td>52</td><td>+2</td></tr></tbody></table></div>
+<h4 id="conscientiousness-facets">Conscientiousness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#conscientiousness-facets" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline Test</th><th>Chat 1</th><th>Chat 2</th><th>Average (LLM)</th><th>Δ</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>75</td><td>38</td><td>35</td><td>36.5</td><td>-38.5</td></tr><tr><td><strong>Productiveness</strong></td><td>50</td><td>50</td><td>50</td><td>50</td><td>0</td></tr><tr><td><strong>Responsibility</strong></td><td>25</td><td>58</td><td>48</td><td>53</td><td>+28</td></tr></tbody></table></div>
+<h4 id="negative-emotionality-facets">Negative Emotionality Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#negative-emotionality-facets" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline Test</th><th>Chat 1</th><th>Chat 2</th><th>Average (LLM)</th><th>Δ</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>69</td><td>65</td><td>68</td><td>66.5</td><td>-2.5</td></tr><tr><td><strong>Depression</strong></td><td>50</td><td>50</td><td>58</td><td>54</td><td>+4</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>25</td><td>58</td><td>65</td><td>61.5</td><td>+36.5</td></tr></tbody></table></div>
+<hr/>
+<h3 id="key-differences--insights">Key Differences &amp; Insights<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#key-differences--insights" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="largest-discrepancies-baseline-vs-llm-average">Largest Discrepancies (Baseline vs LLM Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#largest-discrepancies-baseline-vs-llm-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ol>
+<li>
+<p><strong>Respectfulness</strong>: -50.5 points</p>
+<ul>
+<li>Baseline: 88 | LLM Avg: 37.5</li>
+<li>The structured questionnaire may have captured social conformity, while the journal responses revealed the authentic anti-authority stance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Energy Levels</strong>: -40.5 points</p>
+<ul>
+<li>Baseline: 94 | LLM Avg: 53.5</li>
+<li>Baseline captured potential energy; journal revealed state-dependent energy with ADHD patterns and stimulant reliance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Organisation</strong>: -38.5 points</p>
+<ul>
+<li>Baseline: 75 | LLM Avg: 36.5</li>
+<li>Journal responses explicitly stated rejection of “rigid, compartmentalised systems” not captured in baseline.</li>
+</ul>
+</li>
+<li>
+<p><strong>Emotional Volatility</strong>: +36.5 points</p>
+<ul>
+<li>Baseline: 25 | LLM Avg: 61.5</li>
+<li>Deep self-reflection revealed emotional coupling to productivity not evident in structured questions.</li>
+</ul>
+</li>
+<li>
+<p><strong>Responsibility</strong>: +28 points</p>
+<ul>
+<li>Baseline: 25 | LLM Avg: 53</li>
+<li>Journal revealed strong goal-orientation and ownership despite execution challenges.</li>
+</ul>
+</li>
+</ol>
+<h4 id="convergent-scores-agreement-across-methods">Convergent Scores (Agreement Across Methods)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#convergent-scores-agreement-across-methods" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Consistency</th></tr></thead><tbody><tr><td><strong>Productiveness</strong></td><td>Perfect agreement (50 across all three)</td></tr><tr><td><strong>Anxiety</strong></td><td>High consistency (69 → 65 → 68)</td></tr><tr><td><strong>Trust</strong></td><td>High consistency (50 → 52 → 52)</td></tr><tr><td><strong>Sociability</strong></td><td>High consistency (50 → 48 → 40)</td></tr></tbody></table></div>
+<h4 id="interpretative-analysis">Interpretative Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#interpretative-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><strong>Why the Discrepancies?</strong></p>
+<ol>
+<li>
+<p><strong>Social Desirability Bias</strong>: Structured questionnaires may elicit more socially acceptable responses, especially on respectfulness and agreeableness dimensions.</p>
+</li>
+<li>
+<p><strong>Context Depth</strong>: Journal responses provided behavioral evidence (dropping out, rejecting authority, relationship with systems) that revealed authentic patterns masked in baseline.</p>
+</li>
+<li>
+<p><strong>Self-Awareness Evolution</strong>: The reflective journal format may have surfaced patterns (emotional volatility, organization struggles) that weren’t consciously accessible during baseline testing.</p>
+</li>
+<li>
+<p><strong>Measurement Method</strong>:</p>
+<ul>
+<li><strong>Baseline</strong>: Likert-scale responses to predetermined statements</li>
+<li><strong>LLM Analysis</strong>: Evidence-based interpretation of naturalistic self-reflection</li>
+</ul>
+</li>
+</ol>
+<p><strong>Most Reliable Scores</strong> (consistent across all three):</p>
+<ul>
+<li>Open-Mindedness (very high across all methods)</li>
+<li>Intellectual Curiosity (consistently exceptional)</li>
+<li>Productiveness (consistently moderate)</li>
+<li>Anxiety (consistently moderate-elevated)</li>
+</ul>
+<p><strong>Most Context-Dependent Scores</strong>:</p>
+<ul>
+<li>Respectfulness (authority context matters)</li>
+<li>Energy Levels (highly state-dependent)</li>
+<li>Emotional Volatility (situation-specific)</li>
+</ul>
+<hr/>
+<p>Google Gemini-3-Pro-Preview (12.01.26) - No System prompt, Thinking Level High, T=1</p>
+<p>Chat 1:</p>
+<p>Based on the detailed linguistic patterns, self-reported behaviors, and psychological markers present in your questionnaire responses, here is your scoring on the Big Five Inventory (BFI) trait matrix.</p>
+<h3 id="bfi-trait-matrix-analysis"><strong>BFI Trait Matrix Analysis</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#bfi-trait-matrix-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-open-mindedness-openness-to-experience-94100"><strong>1. Open-Mindedness (Openness to Experience): 94/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-open-mindedness-openness-to-experience-94100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>This is by far your dominant trait. Your responses exhibit a profound desire for novelty, abstraction, and depth. You prioritize “base truths,” “nuanced areas of research,” and “vision” over convention.</p>
+<ul>
+<li>
+<p><strong>Intellectual Curiosity (98):</strong> You actively consume long-form content, synthesize cross-disciplinary ideas (AI, philosophy, biology), and seek “root context.” You are a deep diver.</p>
+</li>
+<li>
+<p><strong>Aesthetic Sensitivity (92):</strong> You identify as a videographer with a specific style, value the tactile nature of tools (ballpoint pens), and are sensitive to your environment (lighting, desk height).</p>
+</li>
+<li>
+<p><strong>Creative Imagination (92):</strong> You have a vivid vision of your “future self,” engage in frequent journaling, and view your life’s trajectory as a malleable narrative.</p>
+</li>
+</ul>
+<h4 id="2-conscientiousness-42100"><strong>2. Conscientiousness: 42/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-conscientiousness-42100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>Your profile shows a classic “high-intent, variable-execution” pattern often seen in creative, high-openness individuals (and those with ADHD tendencies). You value the idea of discipline (Deep Work, Atomic Habits) but struggle with rigid implementation.</p>
+<ul>
+<li>
+<p><strong>Organisation (25):</strong> You explicitly reject “rigid, compartmentalised systems” and “cages.” You admit to a non-linear path and struggling with administrative/maintenance tasks.</p>
+</li>
+<li>
+<p><strong>Productiveness (55):</strong> Highly variable. You are hyper-productive in “states” of obsession/flow but prone to avoidance and procrastination when conviction lacks.</p>
+</li>
+<li>
+<p><strong>Responsibility (45):</strong> You take high responsibility for your life path (dropping out, choosing specific careers) but struggle with duty-bound responsibility (avoiding client projects you don’t love).</p>
+</li>
+</ul>
+<h4 id="3-negative-emotionality-neuroticism-62100"><strong>3. Negative Emotionality (Neuroticism): 62/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-negative-emotionality-neuroticism-62100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>You possess a “sensitive” temperament. While you have strong cognitive tools to manage this (journaling, philosophy), you feel deeply, and your self-esteem is tightly coupled with your productivity.</p>
+<ul>
+<li>
+<p><strong>Anxiety (65):</strong> You mention fear of failure, shame regarding procrastination, and feeling anxious when you are not “aligned” or producing.</p>
+</li>
+<li>
+<p><strong>Depression (40):</strong> You describe “negative spirals” and “lower self-image” caused by bad habits, but you appear to have a resilient baseline that bounces back with lifestyle corrections.</p>
+</li>
+<li>
+<p><strong>Emotional Volatility (80):</strong> You oscillate between “obsession/excitement” and “avoidance/frustration.” Your emotional state dictates your output quality.</p>
+</li>
+</ul>
+<h4 id="4-extraversion-38100"><strong>4. Extraversion: 38/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-extraversion-38100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>You appear to be an introspective individual who recharges through solitude. Your focus is on the “self-system” rather than social dominance or constant interaction.</p>
+<ul>
+<li>
+<p><strong>Sociability (30):</strong> You prefer isolation (early mornings, late nights) and deep work. You left a university environment partly because you didn’t fit the social/structural vibe.</p>
+</li>
+<li>
+<p><strong>Assertiveness (65):</strong> While not socially loud, you possess high autonomy. You are willing to defy social expectations (dropping out of Warwick) to follow your own conviction.</p>
+</li>
+<li>
+<p><strong>Energy Levels (50):</strong> Your energy is fragile and dependent on “dopaminergic regulation.” It is high when inspired, but easily depleted by low-quality inputs.</p>
+</li>
+</ul>
+<h4 id="5-agreeableness-48100"><strong>5. Agreeableness: 48/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-agreeableness-48100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>You are empathetic but non-conformist. You are more focused on “truth” and “alignment” than on social harmony or hierarchy.</p>
+<ul>
+<li>
+<p><strong>Compassion (70):</strong> You “feel deeply,” possess a desire to understand humans/life, and use journaling to process emotions.</p>
+</li>
+<li>
+<p><strong>Respectfulness (20):</strong> You explicitly stated, “I also don’t really respect authority.” You value competence and alignment over titles or traditional status.</p>
+</li>
+<li>
+<p><strong>Trust (55):</strong> You trust your own intuition and “higher order” heavily, but you are skeptical of traditional educational and employment systems.</p>
+</li>
+</ul>
+<hr/>
+<h3 id="visual-summary"><strong>Visual Summary</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#visual-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td>Dimension</td><td>Score</td><td>Descriptor</td></tr><tr><td><strong>Open-Mindedness</strong></td><td><strong>94</strong></td><td><strong>Visionary / Explorer</strong></td></tr><tr><td><strong>Conscientiousness</strong></td><td><strong>42</strong></td><td><strong>Flexible / Spontaneous</strong></td></tr><tr><td><strong>Neuroticism</strong></td><td><strong>62</strong></td><td><strong>Sensitive / Reactive</strong></td></tr><tr><td><strong>Agreeableness</strong></td><td><strong>48</strong></td><td><strong>Independent / Non-conformist</strong></td></tr><tr><td><strong>Extraversion</strong></td><td><strong>38</strong></td><td><strong>Introspective / Solitary</strong></td></tr></tbody></table></div>
+<p>Chat 2:</p>
+<h3 id="bfi-trait-matrix-0-100"><strong>BFI Trait Matrix (0-100)</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#bfi-trait-matrix-0-100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-extraversion-45100"><strong>1. Extraversion: 45/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-extraversion-45100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>A profile of “Introverted Agency.” You possess high drive but gain energy from solitude.</p>
+<ul>
+<li>
+<p><strong>Sociability: 25</strong> — You prioritize solitary learning, reading, and internal dialogue (journaling/LLMs). You left a social environment (University) for a self-directed path.</p>
+</li>
+<li>
+<p><strong>Assertiveness: 75</strong> — You exhibit strong agency. You make bold, non-conformist decisions (dropping out, rejecting authority) and have a clear vision of who you want to be.</p>
+</li>
+<li>
+<p><strong>Energy Levels: 35</strong> — Your energy is “bursty” and fragile. It is highly dependent on your emotional state (“conviction”) and biological inputs (caffeine/dex/sleep) rather than a steady, endless reserve.</p>
+</li>
+</ul>
+<h4 id="2-agreeableness-40100"><strong>2. Agreeableness: 40/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-agreeableness-40100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>A profile of “Independent Non-Conformist.”</p>
+<ul>
+<li>
+<p><strong>Compassion: 55</strong> — You “feel deeply” and strive to be “aligned,” suggesting high internal empathy, but your focus is currently very self-centric (self-actualization, self-moulding) rather than community-centric.</p>
+</li>
+<li>
+<p><strong>Respectfulness: 15</strong> — You explicitly stated: “I don’t really respect authority.” You value competence and truth over hierarchy or tradition.</p>
+</li>
+<li>
+<p><strong>Trust: 50</strong> — A complex score. You trust “experts” and “higher powers,” but you are skeptical of traditional systems (schooling, standard career paths).</p>
+</li>
+</ul>
+<h4 id="3-conscientiousness-28100"><strong>3. Conscientiousness: 28/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-conscientiousness-28100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>A profile of “The Chaos Pilot.” (Note: This measures natural tendency, not your aspirations).</p>
+<ul>
+<li>
+<p><strong>Organisation: 10</strong> — You self-identify as “very ADHD,” reject rigid systems, and admit to “fluttering between areas.” You struggle significantly with linearity.</p>
+</li>
+<li>
+<p><strong>Productiveness: 45</strong> — You are capable of “Deep Work” and obsession, but it is inconsistent. Your output relies on “states” rather than discipline. You actively fight against procrastination and avoidance.</p>
+</li>
+<li>
+<p><strong>Responsibility: 30</strong> — You prioritize interest over duty. You are willing to drop projects (like the MSL client work) if the internal “conviction” fades, prioritizing personal alignment over external obligation.</p>
+</li>
+</ul>
+<h4 id="4-negative-emotionality-neuroticism-72100"><strong>4. Negative Emotionality (Neuroticism): 72/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-negative-emotionality-neuroticism-72100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>A profile of “The Perfectionist’s Burden.”</p>
+<ul>
+<li>
+<p><strong>Anxiety: 75</strong> — You report “fear of failure,” “shame,” and “pressure” when not performing. The gap between your “vision” and “current reality” causes significant tension.</p>
+</li>
+<li>
+<p><strong>Depression: 60</strong> — You mention “negative spirals,” “lesser self-image,” and feeling drained when habits slip.</p>
+</li>
+<li>
+<p><strong>Emotional Volatility: 80</strong> — You swing between being “obsessed/excited” and “bouncing off/avoiding.” Your emotional state dictates your workflow entirely.</p>
+</li>
+</ul>
+<h4 id="5-open-mindedness-96100"><strong>5. Open-Mindedness: 96/100</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-open-mindedness-96100" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>A profile of “The Philosopher-Artist.” This is your dominant super-trait.</p>
+<ul>
+<li>
+<p><strong>Intellectual Curiosity: 98</strong> — You consume long-form content, cross-pollinate ideas (AI, Philosophy, Engineering), and seek “base truths.” You learn conceptually before practically.</p>
+</li>
+<li>
+<p><strong>Aesthetic Sensitivity: 90</strong> — You are a videographer, you care about the “feel” of writing, the setup of your desk, and the “fluidity” of expression. You notice nuance.</p>
+</li>
+<li>
+<p><strong>Creative Imagination: 99</strong> — You constantly visualize a “future self,” connect unrelated domains, and operate on non-linear paths. You live in the world of ideas.</p>
+</li>
+</ul>
+<hr/>
+<h3 id="analytical-summary"><strong>Analytical Summary</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#analytical-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Your Core Archetype: The Visionary Architect</strong><br/>
+You are a classic “High Openness, Low Conscientiousness” intellectual. You possess the vision to see what needs to be built and the intellect to understand how it works, but you struggle with the linear execution required to get there.</p>
+<p><strong>Key Friction Point: The “Gap” Anxiety</strong><br/>
+Your Neuroticism scores are high because your Openness (Vision) writes checks that your Conscientiousness (Execution) struggles to cash. You see the perfect version of yourself and the project, but the messy, boring reality of the “middle work” causes you to disengage, leading to shame spirals.</p>
+<p><strong>Strengths to Leverage:</strong></p>
+<ul>
+<li>
+<p><strong>Hyper-focus:</strong> When the conviction hits, you learn faster than almost anyone (Top-down learning).</p>
+</li>
+<li>
+<p><strong>Synthesis:</strong> You can merge disparate fields (e.g., Creative Computing + Philosophy) to create novel solutions.</p>
+</li>
+<li>
+<p><strong>Intuition:</strong> Your “gut” decision-making, while risky to others, is calibrated to your specific needs.</p>
+</li>
+</ul>
+<p><strong>Risks to Manage:</strong></p>
+<ul>
+<li>
+<p><strong>The “Conviction” Trap:</strong> You rely too heavily on feeling like working. If you wait for “conviction” to do client work, you will struggle professionally. You need “bridge habits”—low-friction starting rituals—rather than relying on inspiration.</p>
+</li>
+<li>
+<p><strong>Identity Rigidity:</strong> You spend a lot of time “moulding” your identity. Be careful not to spend more time planning the person you want to be than being that person through action.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th></th><th></th><th></th></tr></thead><tbody><tr><td>Trait Domain</td><td>Domain Score</td><td>Facet</td><td>Facet Score</td></tr><tr><td><strong>Extraversion</strong></td><td><strong>45</strong></td><td>Sociability</td><td>25</td></tr><tr><td></td><td></td><td>Assertiveness</td><td>75</td></tr><tr><td></td><td></td><td>Energy Levels</td><td>35</td></tr><tr><td><strong>Agreeableness</strong></td><td><strong>40</strong></td><td>Compassion</td><td>55</td></tr><tr><td></td><td></td><td>Respectfulness</td><td>15</td></tr><tr><td></td><td></td><td>Trust</td><td>50</td></tr><tr><td><strong>Conscientiousness</strong></td><td><strong>28</strong></td><td>Organisation</td><td>10</td></tr><tr><td></td><td></td><td>Productiveness</td><td>45</td></tr><tr><td></td><td></td><td>Responsibility</td><td>30</td></tr><tr><td><strong>Negative Emotionality</strong></td><td><strong>72</strong></td><td>Anxiety</td><td>75</td></tr><tr><td></td><td></td><td>Depression</td><td>60</td></tr><tr><td></td><td></td><td>Emotional Volatility</td><td>80</td></tr><tr><td><strong>Open-Mindedness</strong></td><td><strong>96</strong></td><td>Intellectual Curiosity</td><td>98</td></tr><tr><td></td><td></td><td>Aesthetic Sensitivity</td><td>90</td></tr><tr><td></td><td></td><td>Creative Imagination</td><td>99</td></tr></tbody></table></div>
+<hr/>
+<h2 id="google-flash-3-preview-analysis---chat-1">Google Flash-3-Preview Analysis - Chat 1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#google-flash-3-preview-analysis---chat-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overview-2">Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overview-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Psychometric analysis using the Big Five (OCEAN) framework, identifying a classic example of High Openness combined with High-Volatility Conscientiousness—common signature for neurodivergent (ADHD) high-performers who rely on “state-dependent” productivity.</p>
+<hr/>
+<h3 id="dimensional-scoring--analysis-2">Dimensional Scoring &amp; Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dimensional-scoring--analysis-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-open-mindedness-94100-very-high">1. Open-Mindedness: <strong>94/100</strong> (Very High)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-open-mindedness-94100-very-high" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>98</td><td>Prioritizes “core concepts,” “base truths,” and “nuanced research.” Desire to understand the why before the how is hallmark of extreme curiosity.</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>88</td><td>Background in videography, sensitivity to “feel” of a ball-point pen, and need for specific “semi-dark” environments indicate high sensory and aesthetic awareness.</td></tr><tr><td><strong>Creative Imagination</strong></td><td>96</td><td>Thrives on “non-linear paths,” “cross-domain connections,” and “shaping/moulding” own reality rather than following a blueprint.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Primary driver. World defined by conceptual frameworks, aesthetic nuance, and intellectual synthesis.</p>
+<hr/>
+<h4 id="2-conscientiousness-48100-below-average">2. Conscientiousness: <strong>48/100</strong> (Below Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-conscientiousness-48100-below-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>22</td><td>Explicitly rejects rigid systems, habit trackers, and “over-engineered” setups. Views traditional structure as a “cage.”</td></tr><tr><td><strong>Productiveness</strong></td><td>58</td><td>Highly variable. When “obsessed,” output is likely 10x the average person; when “bouncing off,” struggles with avoidance and procrastination.</td></tr><tr><td><strong>Responsibility</strong></td><td>65</td><td>While dislikes authority, has high personal accountability for life path (e.g., dropping out of university to pursue own conviction).</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Exhibits “High-Intensity, Low-Consistency” pattern. Not “orderly,” but deeply “agentic.”</p>
+<hr/>
+<h4 id="3-extraversion-42100-below-average">3. Extraversion: <strong>42/100</strong> (Below Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-extraversion-42100-below-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>30</td><td>Prefers “quiet” environments, “early mornings/late nights,” and deep work over social stimulation. Limited consultation with others when making big moves.</td></tr><tr><td><strong>Assertiveness</strong></td><td>82</td><td>Strong “sense of identity” and “conviction.” Not afraid to take unconventional paths (dropping out of Warwick) or disregard traditional authority.</td></tr><tr><td><strong>Energy Levels</strong></td><td>45</td><td>Energy is mostly internal and directed toward projects. Finds dopaminergic social environments “depleting” rather than “restorative.”</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Leans toward “Introspective Assertive” type. Doesn’t need social validation, but has high “Agency.”</p>
+<hr/>
+<h4 id="4-agreeableness-38100-low">4. Agreeableness: <strong>38/100</strong> (Low)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-agreeableness-38100-low" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>55</td><td>”Feel deeply” and looks for “alignment,” suggesting high empathy for human condition, though primarily filtered through own experience.</td></tr><tr><td><strong>Respectfulness</strong></td><td>25</td><td>Explicitly stated: “I don’t really respect authority.” Values competence and “persons of authority in the area” over titles or hierarchy.</td></tr><tr><td><strong>Trust</strong></td><td>40</td><td>Relies heavily on own journaling and being “close to base truths” rather than taking external advice at face value.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: “Polite but Non-Conformist.” Values truth and self-actualization over social harmony or institutional “rules.”</p>
+<hr/>
+<h4 id="5-negative-emotionality-neuroticism-62100-above-average">5. Negative Emotionality (Neuroticism): <strong>62/100</strong> (Above Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-negative-emotionality-neuroticism-62100-above-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>68</td><td>Experiences “anxious” feelings and “lower self-image” when not productive. Feels “pressure” of the “gap” between current and future self.</td></tr><tr><td><strong>Depression</strong></td><td>40</td><td>While experiences “negative spirals” and “shame” during procrastination, high agency and “vision” act as strong buffer against clinical despondency.</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>78</td><td>”I feel deeply.” Mood swings closely tied to whether “aligned” or “bouncing off” work. Very sensitive to internal “states.”</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Emotional life tied to performance. Has “High Affective Sensitivity.”</p>
+<hr/>
+<h3 id="overall-summary-profile-2">Overall Summary Profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-summary-profile-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trait</th><th>Score</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>94</td><td>Very High</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>62</td><td>Above Average</td></tr><tr><td><strong>Conscientiousness</strong></td><td>48</td><td>Below Average</td></tr><tr><td><strong>Extraversion</strong></td><td>42</td><td>Below Average</td></tr><tr><td><strong>Agreeableness</strong></td><td>38</td><td>Low</td></tr></tbody></table></div>
+<hr/>
+<h3 id="profile-interpretation-2">Profile Interpretation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#profile-interpretation-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>User Persona Summary:</strong></p>
+<ol>
+<li>
+<p><strong>The Architect of Self</strong>: Treats personality and brain like a system to be optimized (Huberman, Newport, Atomic Habits).</p>
+</li>
+<li>
+<p><strong>The Intuitive Specialist</strong>: Learns “fast” once a concept clicks, but cannot “force” performance on low-interest tasks.</p>
+</li>
+<li>
+<p><strong>The Autonomous Agent</strong>: Requires a “conversational interface” and “freedom” because brain functions through synthesis.</p>
+</li>
+<li>
+<p><strong>State-Dependent Productivity</strong>: High Openness with High-Volatility Conscientiousness—classic neurodivergent pattern requiring optimal conditions for performance.</p>
+</li>
+</ol>
+<hr/>
+<h2 id="google-flash-3-preview-analysis---chat-2">Google Flash-3-Preview Analysis - Chat 2<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#google-flash-3-preview-analysis---chat-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overview-3">Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overview-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Personality profile mapping using BFI-2 framework, highlighting highly Open-Minded and Individualistic personality with strong need for autonomy and non-linear productivity patterns.</p>
+<hr/>
+<h3 id="dimensional-scoring--analysis-3">Dimensional Scoring &amp; Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dimensional-scoring--analysis-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-open-mindedness-94100-very-high-1">1. Open-Mindedness: <strong>94/100</strong> (Very High)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-open-mindedness-94100-very-high-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>98</td><td>Seeks “base truths,” consumes long-form content, and dives into complex fields like ML/AI agents for fun.</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>88</td><td>Background in videography/photography and sensitivity to environment (desk height, pen type) indicates high aesthetic awareness.</td></tr><tr><td><strong>Creative Imagination</strong></td><td>96</td><td>Thrives on cross-disciplinary connections and “shaping/molding” own understanding rather than following a syllabus.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Most dominant trait. Life characterized by deep intellectual curiosity and refusal to accept traditional structures.</p>
+<hr/>
+<h4 id="2-negative-emotionality-neuroticism-72100-above-average">2. Negative Emotionality (Neuroticism): <strong>72/100</strong> (Above Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-negative-emotionality-neuroticism-72100-above-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>75</td><td>Feels “flustered,” “anxious,” and “under pressure” when there are gaps in knowledge or when avoiding tasks.</td></tr><tr><td><strong>Depression</strong></td><td>65</td><td>Describes “shame,” “negative spirals,” and “lower self-image” when falling out of ideal habits.</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>78</td><td>”Obsessions” provide high peaks, but “bouncing off” and “avoidance” create significant troughs.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Experiences emotions deeply. Self-worth tightly coupled to productivity and “alignment,” leading to significant volatility.</p>
+<hr/>
+<h4 id="3-conscientiousness-42100-below-average">3. Conscientiousness: <strong>42/100</strong> (Below Average)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-conscientiousness-42100-below-average" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>22</td><td>Finds systems to be “cages,” dislikes rigidity, admits to “fluttering,” non-linear path.</td></tr><tr><td><strong>Productiveness</strong></td><td>48</td><td>Capable of high output (coding, videography, writing) but struggles with procrastination and “high-operational friction.”</td></tr><tr><td><strong>Responsibility</strong></td><td>55</td><td>Takes immense responsibility for identity and growth, but less for external “obligations” (e.g., MSL project or traditional university requirements).</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Conscientiousness is “interest-based” rather than “duty-based.” Struggles with traditional organization but possesses high “Deep Work” capabilities when aligned.</p>
+<hr/>
+<h4 id="4-extraversion-48100-moderate">4. Extraversion: <strong>48/100</strong> (Moderate)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-extraversion-48100-moderate" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>30</td><td>Prefers early mornings/late nights in quiet environments. Works alone with limited consultation with others.</td></tr><tr><td><strong>Assertiveness</strong></td><td>85</td><td>Very high score. Dropping out of Warwick and disregarding authority figures shows strong “agentic” drive.</td></tr><tr><td><strong>Energy Levels</strong></td><td>30</td><td>Needs to carefully manage stimuli and “dopaminergic” inputs to avoid depletion.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: “Assertive Introvert.” High agency and conviction, but energy directed inward or toward solo projects.</p>
+<hr/>
+<h4 id="5-agreeableness-35100-low">5. Agreeableness: <strong>35/100</strong> (Low)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-agreeableness-35100-low" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Score</th><th>Evidence</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>50</td><td>Feels deeply, though writing focuses primarily on internal system and self-actualization.</td></tr><tr><td><strong>Respectfulness</strong></td><td>15</td><td>Explicitly stated: “I don’t really respect authority.” Willing to break social contracts (like university) to stay true to self.</td></tr><tr><td><strong>Trust</strong></td><td>40</td><td>Trusts “persons of authority” for information, but ultimately relies on own “experiments” and “subconscious frameworks” to verify reality.</td></tr></tbody></table></div>
+<p><strong>Summary</strong>: Not “disagreeable” in hostile sense, but highly non-conformist and prioritizes personal truth over social harmony or authority.</p>
+<hr/>
+<h3 id="overall-summary-profile-3">Overall Summary Profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-summary-profile-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trait</th><th>Score</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>94</td><td>Very High</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>72</td><td>Above Average</td></tr><tr><td><strong>Extraversion</strong></td><td>48</td><td>Moderate</td></tr><tr><td><strong>Conscientiousness</strong></td><td>42</td><td>Below Average</td></tr><tr><td><strong>Agreeableness</strong></td><td>35</td><td>Low</td></tr></tbody></table></div>
+<hr/>
+<h3 id="profile-interpretation-3">Profile Interpretation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#profile-interpretation-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>“High-Agency Explorer” Profile</strong></p>
+<p>You are a <strong>High-Agency Explorer</strong>. You operate best as a “Sovereign Individual” who treats life as a series of experiments. Your ADHD nature means you are a <strong>Synthesizer</strong>—you take disparate ideas from podcasts, research, and philosophy and weave them into a personal identity.</p>
+<p><strong>Key Insights:</strong></p>
+<ol>
+<li>
+<p><strong>Dominant Trait</strong>: Open-mindedness is the defining characteristic—vision and intellectual synthesis drive behavior.</p>
+</li>
+<li>
+<p><strong>The Friction Point</strong>: Biggest challenge is the gap between High Open-Mindedness (vision) and Negative Emotionality (shame when vision isn’t met). Journaling serves as a “cognitive exoskeleton” to bridge this gap.</p>
+</li>
+<li>
+<p><strong>Interest-Based Productivity</strong>: Conscientiousness is interest-driven rather than duty-driven—capable of exceptional output when aligned with conviction.</p>
+</li>
+<li>
+<p><strong>Assertive Independence</strong>: Very high assertiveness (85) combined with low sociability (30) creates “Assertive Introvert” pattern—strong agency without social dependence.</p>
+</li>
+<li>
+<p><strong>Non-Conformist Authenticity</strong>: Low respectfulness (15) reflects genuine anti-authority stance, not hostility—prioritizes internal truth over external validation.</p>
+</li>
+</ol>
+<p><strong>System Recommendation:</strong></p>
+<p>Requires a <strong>“low-friction, high-context” system</strong>. Anything requiring manual data entry (habit trackers) will fail. Needs a system that feels like a sparring partner—an LLM-based interface that captures “fluid thoughts” and reflects them back as structured progress.</p>
+<hr/>
+<h2 id="comprehensive-comparison-table">Comprehensive Comparison Table<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#comprehensive-comparison-table" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="overall-dimension-scores">Overall Dimension Scores<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#overall-dimension-scores" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Open-Mindedness</strong></td><td>92</td><td>85</td><td>86</td><td>94</td><td>96</td><td>94</td><td>94</td><td>91.50</td></tr><tr><td><strong>Extraversion</strong></td><td>77</td><td>53</td><td>53</td><td>38</td><td>45</td><td>42</td><td>48</td><td>46.50</td></tr><tr><td><strong>Agreeableness</strong></td><td>67</td><td>48</td><td>42</td><td>48</td><td>40</td><td>38</td><td>35</td><td>41.83</td></tr><tr><td><strong>Conscientiousness</strong></td><td>50</td><td>47</td><td>44</td><td>42</td><td>28</td><td>48</td><td>42</td><td>41.83</td></tr><tr><td><strong>Negative Emotionality</strong></td><td>48</td><td>58</td><td>65</td><td>62</td><td>72</td><td>62</td><td>72</td><td>65.17</td></tr></tbody></table></div>
+<hr/>
+<h3 id="complete-facet-level-comparison">Complete Facet-Level Comparison<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#complete-facet-level-comparison" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="open-mindedness-facets-1">Open-Mindedness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#open-mindedness-facets-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Intellectual Curiosity</strong></td><td>100</td><td>88</td><td>92</td><td>98</td><td>98</td><td>98</td><td>98</td><td>95.33</td></tr><tr><td><strong>Aesthetic Sensitivity</strong></td><td>75</td><td>80</td><td>78</td><td>92</td><td>90</td><td>88</td><td>88</td><td>86.00</td></tr><tr><td><strong>Creative Imagination</strong></td><td>100</td><td>87</td><td>82</td><td>92</td><td>99</td><td>96</td><td>96</td><td>92.00</td></tr></tbody></table></div>
+<hr/>
+<h4 id="extraversion-facets-1">Extraversion Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#extraversion-facets-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Sociability</strong></td><td>50</td><td>48</td><td>40</td><td>30</td><td>25</td><td>30</td><td>30</td><td>33.83</td></tr><tr><td><strong>Assertiveness</strong></td><td>88</td><td>65</td><td>72</td><td>65</td><td>75</td><td>82</td><td>85</td><td>74.00</td></tr><tr><td><strong>Energy Levels</strong></td><td>94</td><td>52</td><td>55</td><td>50</td><td>35</td><td>45</td><td>30</td><td>44.50</td></tr></tbody></table></div>
+<hr/>
+<h4 id="agreeableness-facets-1">Agreeableness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#agreeableness-facets-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Compassion</strong></td><td>62</td><td>55</td><td>48</td><td>70</td><td>55</td><td>55</td><td>50</td><td>55.50</td></tr><tr><td><strong>Respectfulness</strong></td><td>88</td><td>40</td><td>35</td><td>20</td><td>15</td><td>25</td><td>15</td><td>25.00</td></tr><tr><td><strong>Trust</strong></td><td>50</td><td>52</td><td>52</td><td>55</td><td>50</td><td>40</td><td>40</td><td>48.17</td></tr></tbody></table></div>
+<hr/>
+<h4 id="conscientiousness-facets-1">Conscientiousness Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#conscientiousness-facets-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Organisation</strong></td><td>75</td><td>38</td><td>35</td><td>25</td><td>10</td><td>22</td><td>22</td><td>25.33</td></tr><tr><td><strong>Productiveness</strong></td><td>50</td><td>50</td><td>50</td><td>55</td><td>45</td><td>58</td><td>48</td><td>51.00</td></tr><tr><td><strong>Responsibility</strong></td><td>25</td><td>58</td><td>48</td><td>45</td><td>30</td><td>65</td><td>55</td><td>50.17</td></tr></tbody></table></div>
+<hr/>
+<h4 id="negative-emotionality-facets-1">Negative Emotionality Facets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#negative-emotionality-facets-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet</th><th>Baseline BFI</th><th>Opus 4.5 (C1)</th><th>Opus 4.5 (C2)</th><th>Gemini 3-Pro (C1)</th><th>Gemini 3-Pro (C2)</th><th>Flash 3-Preview (C1)</th><th>Flash 3-Preview (C2)</th><th>LLM Average</th></tr></thead><tbody><tr><td><strong>Anxiety</strong></td><td>69</td><td>65</td><td>68</td><td>65</td><td>75</td><td>68</td><td>75</td><td>69.33</td></tr><tr><td><strong>Depression</strong></td><td>50</td><td>50</td><td>58</td><td>40</td><td>60</td><td>40</td><td>65</td><td>52.17</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>25</td><td>58</td><td>65</td><td>80</td><td>80</td><td>78</td><td>78</td><td>73.17</td></tr></tbody></table></div>
+<hr/>
+<h3 id="cross-model-analysis">Cross-Model Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cross-model-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="highest-inter-model-agreement-low-variance">Highest Inter-Model Agreement (Low Variance)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#highest-inter-model-agreement-low-variance" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet/Dimension</th><th>Standard Deviation</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Productiveness</strong></td><td>3.54</td><td>All models converge on ~50 (moderate, variable)</td></tr><tr><td><strong>Trust</strong></td><td>1.92</td><td>Consistent moderate trust across analyses</td></tr><tr><td><strong>Anxiety</strong></td><td>4.03</td><td>All models identify elevated anxiety (65-75 range)</td></tr><tr><td><strong>Intellectual Curiosity</strong></td><td>5.10</td><td>All models agree on very high (88-100 range)</td></tr></tbody></table></div>
+<h4 id="highest-inter-model-disagreement-high-variance">Highest Inter-Model Disagreement (High Variance)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#highest-inter-model-disagreement-high-variance" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Facet/Dimension</th><th>Standard Deviation</th><th>Interpretation</th></tr></thead><tbody><tr><td><strong>Respectfulness</strong></td><td>28.79</td><td>Massive variance (15-88) - context-dependent measurement</td></tr><tr><td><strong>Organisation</strong></td><td>25.74</td><td>Wide variance (10-75) - baseline vs. authentic behavior</td></tr><tr><td><strong>Energy Levels</strong></td><td>22.20</td><td>High variance (35-94) - state-dependent trait</td></tr><tr><td><strong>Emotional Volatility</strong></td><td>23.13</td><td>Wide variance (25-80) - depth of self-reflection matters</td></tr></tbody></table></div>
+<h4 id="model-specific-tendencies">Model-Specific Tendencies<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#model-specific-tendencies" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><strong>Opus 4.5 Pattern:</strong></p>
+<ul>
+<li>More conservative/moderate scoring</li>
+<li>Tight agreement between both chats (C1 &amp; C2)</li>
+<li>Most balanced assessments</li>
+</ul>
+<p><strong>Gemini 3-Pro Pattern:</strong></p>
+<ul>
+<li>More extreme/polarized scoring</li>
+<li>Chat 2 more severe than Chat 1 (especially Conscientiousness: 42→28, Neuroticism: 62→72)</li>
+<li>Higher variance between chats</li>
+<li>More dramatic language (“Chaos Pilot”, “Perfectionist’s Burden”)</li>
+</ul>
+<p><strong>Baseline Test Pattern:</strong></p>
+<ul>
+<li>Highest scores on socially-influenced traits (Respectfulness: 88, Energy: 94)</li>
+<li>Lowest scores on self-critical traits (Responsibility: 25, Emotional Volatility: 25)</li>
+<li>Likely affected by social desirability bias</li>
+</ul>
+<hr/>
+<h3 id="key-findings-summary">Key Findings Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#key-findings-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="universal-truths-consistent-across-all-methods">Universal Truths (Consistent Across All Methods)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#universal-truths-consistent-across-all-methods" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ol>
+<li><strong>Open-Mindedness is dominant</strong> (85-96 range) - highest and most consistent trait</li>
+<li><strong>Intellectual Curiosity is exceptional</strong> (88-100 range)</li>
+<li><strong>Organisation is low</strong> (10-75 range, average 36 excluding baseline)</li>
+<li><strong>Productiveness is moderate and variable</strong> (45-55 range)</li>
+</ol>
+<h4 id="context-dependent-traits">Context-Dependent Traits<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#context-dependent-traits" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ol>
+<li><strong>Respectfulness</strong>: Highly dependent on how authority is framed</li>
+<li><strong>Energy Levels</strong>: State-dependent, varies with conviction and biological factors</li>
+<li><strong>Emotional Volatility</strong>: Revealed through depth of reflection</li>
+</ol>
+<h4 id="measurement-insight">Measurement Insight<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#measurement-insight" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li><strong>Structured tests</strong> (Baseline): More socially desirable responses</li>
+<li><strong>LLM analysis of journals</strong>: Reveals authentic patterns, behavioral evidence</li>
+<li><strong>Model differences</strong>: Gemini more dramatic, Opus more measured</li>
+<li><strong>Cross-model average</strong>: Likely most accurate representation (balances biases)</li>
+</ul>
+<hr/></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-2" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#llm-claude-experimentation" data-for="llm-claude-experimentation">LLM (Claude) experimentation</a></li><li class="depth-1"><a href="#methods" data-for="methods">Methods</a></li><li class="depth-1"><a href="#claude-opus-45-analysis---chat-1" data-for="claude-opus-45-analysis---chat-1">Claude Opus 4.5 Analysis - Chat 1</a></li><li class="depth-2"><a href="#overview" data-for="overview">Overview</a></li><li class="depth-2"><a href="#dimensional-scoring--analysis" data-for="dimensional-scoring--analysis">Dimensional Scoring &amp; Analysis</a></li><li class="depth-2"><a href="#overall-summary-profile" data-for="overall-summary-profile">Overall Summary Profile</a></li><li class="depth-2"><a href="#profile-interpretation" data-for="profile-interpretation">Profile Interpretation</a></li><li class="depth-1"><a href="#claude-opus-45-analysis---chat-2" data-for="claude-opus-45-analysis---chat-2">Claude Opus 4.5 Analysis - Chat 2</a></li><li class="depth-2"><a href="#overview-1" data-for="overview-1">Overview</a></li><li class="depth-2"><a href="#dimensional-scoring--analysis-1" data-for="dimensional-scoring--analysis-1">Dimensional Scoring &amp; Analysis</a></li><li class="depth-2"><a href="#overall-summary-profile-1" data-for="overall-summary-profile-1">Overall Summary Profile</a></li><li class="depth-2"><a href="#profile-interpretation-1" data-for="profile-interpretation-1">Profile Interpretation</a></li><li class="depth-1"><a href="#cross-analysis-comparison" data-for="cross-analysis-comparison">Cross-Analysis Comparison</a></li><li class="depth-2"><a href="#overall-dimension-scores-comparison" data-for="overall-dimension-scores-comparison">Overall Dimension Scores Comparison</a></li><li class="depth-2"><a href="#facet-level-comparison" data-for="facet-level-comparison">Facet-Level Comparison</a></li><li class="depth-2"><a href="#key-differences--insights" data-for="key-differences--insights">Key Differences &amp; Insights</a></li><li class="depth-2"><a href="#bfi-trait-matrix-analysis" data-for="bfi-trait-matrix-analysis">BFI Trait Matrix Analysis</a></li><li class="depth-2"><a href="#visual-summary" data-for="visual-summary">Visual Summary</a></li><li class="depth-2"><a href="#bfi-trait-matrix-0-100" data-for="bfi-trait-matrix-0-100">BFI Trait Matrix (0-100)</a></li><li class="depth-2"><a href="#analytical-summary" data-for="analytical-summary">Analytical Summary</a></li><li class="depth-1"><a href="#google-flash-3-preview-analysis---chat-1" data-for="google-flash-3-preview-analysis---chat-1">Google Flash-3-Preview Analysis - Chat 1</a></li><li class="depth-2"><a href="#overview-2" data-for="overview-2">Overview</a></li><li class="depth-2"><a href="#dimensional-scoring--analysis-2" data-for="dimensional-scoring--analysis-2">Dimensional Scoring &amp; Analysis</a></li><li class="depth-2"><a href="#overall-summary-profile-2" data-for="overall-summary-profile-2">Overall Summary Profile</a></li><li class="depth-2"><a href="#profile-interpretation-2" data-for="profile-interpretation-2">Profile Interpretation</a></li><li class="depth-1"><a href="#google-flash-3-preview-analysis---chat-2" data-for="google-flash-3-preview-analysis---chat-2">Google Flash-3-Preview Analysis - Chat 2</a></li><li class="depth-2"><a href="#overview-3" data-for="overview-3">Overview</a></li><li class="depth-2"><a href="#dimensional-scoring--analysis-3" data-for="dimensional-scoring--analysis-3">Dimensional Scoring &amp; Analysis</a></li><li class="depth-2"><a href="#overall-summary-profile-3" data-for="overall-summary-profile-3">Overall Summary Profile</a></li><li class="depth-2"><a href="#profile-interpretation-3" data-for="profile-interpretation-3">Profile Interpretation</a></li><li class="depth-1"><a href="#comprehensive-comparison-table" data-for="comprehensive-comparison-table">Comprehensive Comparison Table</a></li><li class="depth-2"><a href="#overall-dimension-scores" data-for="overall-dimension-scores">Overall Dimension Scores</a></li><li class="depth-2"><a href="#complete-facet-level-comparison" data-for="complete-facet-level-comparison">Complete Facet-Level Comparison</a></li><li class="depth-2"><a href="#cross-model-analysis" data-for="cross-model-analysis">Cross-Model Analysis</a></li><li class="depth-2"><a href="#key-findings-summary" data-for="key-findings-summary">Key Findings Summary</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="../animus/ANIMUS---BASAIRA-Reflections" class="internal">ANIMUS - BASAIRA Reflections</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript.js" type="module" data-persist="true"></script></html>

@@ -8,3 +8,12 @@ node_modules/
 _shots_tmp/
 /tmp/
 
+# thumbnail variant experiment
+index-thumbs.html
+thumbs.css
+thumbs/
+
+# one-off playwright scripts
+final-screenshot.js
+take-screenshots.js
+

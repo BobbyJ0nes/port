@@ -22,6 +22,7 @@
 
     <nav class="nav" aria-label="primary">
       <a href="index.html" aria-current="page">work</a>
+      <a href="blog/">blog</a>
       <a href="about.html">about</a>
     </nav>
 
@@ -43,13 +44,34 @@
       <h2 class="intro__subtitle">Each piece focusses on communicating a story.</h2>
     </section>
 
-<section class="work" aria-labelledby="work-h">
+<section class="work" aria-labelledby="writing-h">
+      <h2 id="writing-h" class="section-title"><span aria-hidden="true">✶ </span>writing</h2>
+
+      <ul class="grid" role="list">
+
+        <li class="card card--feature">
+          <a href="blog/animus/" class="card__link" aria-label="ANIMUS — the user-model layer · essay 001">
+            <div class="card__thumb card__thumb--animus" aria-hidden="true">
+              <span class="card__tag">essay · interactive figures</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">essay 001 · jan 2026 · lab notebook cut</p>
+              <h3 class="card__title">ANIMUS — the user-model layer.</h3>
+              <p class="card__blurb">An experiment in scoring a person from their journal, repeated across three frontier LLMs. The data tells one story. The models tell another.</p>
+            </div>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+    <section class="work" aria-labelledby="work-h">
       <h2 id="work-h" class="section-title"><span aria-hidden="true">✶ </span>work</h2>
 
       <ul class="grid" role="list">
 
         <li class="card">
-          <a href="projects/moss/index.html" class="card__link" aria-label="moss-tech — a Three.js product page for a photogrammetry moss scan">
+          <a href="projects/moss/index.html" class="card__link" target="_blank" rel="noopener" aria-label="moss-tech — a Three.js product page for a photogrammetry moss scan (opens in new tab)">
             <div class="card__thumb card__thumb--moss" aria-hidden="true">
               <span class="card__tag">three.js · glb · draco</span>
             </div>
@@ -62,7 +84,7 @@
         </li>
 
         <li class="card">
-          <a href="projects/a_toi/index.html" class="card__link" aria-label="à toi — an ASCII and video meditation with pointer interaction">
+          <a href="projects/a_toi/index.html" class="card__link" target="_blank" rel="noopener" aria-label="à toi — an ASCII and video meditation with pointer interaction (opens in new tab)">
             <div class="card__thumb card__thumb--atoi" aria-hidden="true">
               <span class="card__tag">canvas · pointer · rAF</span>
             </div>
@@ -75,14 +97,14 @@
         </li>
 
         <li class="card">
-          <a href="projects/seventeen/index.html" class="card__link" aria-label="seventeen — a video rendered as drifting ASCII type over a long prose poem">
+          <a href="projects/seventeen/index.html" class="card__link" target="_blank" rel="noopener" aria-label="seventeen — a video rendered as drifting ASCII type over a long prose poem (opens in new tab)">
             <div class="card__thumb card__thumb--seventeen" aria-hidden="true">
               <span class="card__tag">canvas · imageData · setInterval</span>
             </div>
             <div class="card__body">
               <p class="card__kicker">canvas · imageData · time</p>
               <h3 class="card__title">seventeen</h3>
-              <p class="card__blurb">a candle, a poem, and one hundred independent row-speeds.</p>
+              <p class="card__blurb">inspect.</p>
             </div>
           </a>
         </li>
@@ -114,7 +136,7 @@
         </li>
 
         <li class="card">
-          <a href="projects/basaira/BASAIRA4/index.html" class="card__link" aria-label="basaira — a typographic page on the arabic word for clear vision">
+          <a href="projects/basaira/BASAIRA4/index.html" class="card__link" target="_blank" rel="noopener" aria-label="basaira — a typographic page on the arabic word for clear vision (opens in new tab)">
             <div class="card__thumb card__thumb--basaira" aria-hidden="true">
               <span class="card__tag">html · css · typography</span>
             </div>
@@ -127,9 +149,22 @@
         </li>
 
         <li class="card card--external">
+          <a href="https://makaira.ai" class="card__link" target="_blank" rel="noopener" aria-label="makaira.ai — AI email triage for operations inboxes (opens in new tab)">
+            <div class="card__thumb card__thumb--makaira" aria-hidden="true">
+              <span class="card__tag">ai · product ↗</span>
+            </div>
+            <div class="card__body">
+              <p class="card__kicker">ai · operations · product</p>
+              <h3 class="card__title">makaira.ai <span class="card__ext" aria-hidden="true">↗</span></h3>
+              <p class="card__blurb">Data Ops layer for Property Management.</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="card card--external">
           <a href="https://basaira.vercel.app/" class="card__link" target="_blank" rel="noopener" aria-label="basaira studio — external site (opens in new tab)">
             <div class="card__thumb card__thumb--studio" aria-hidden="true">
-              <span class="card__tag">external ↗</span>
+              <span class="card__tag">learning · product experimentation</span>
             </div>
             <div class="card__body">
               <p class="card__kicker">studio · external</p>
