@@ -14,8 +14,10 @@
    Caches fetched pages in-memory.
    ===================================================================== */
 
-// Any link whose pathname starts with /notes/ on the same origin is a wiki link.
-const WIKI_PATH_PREFIX = "/notes/"
+// Wiki links are same-origin links whose pathname contains /notes/ — this
+// works whether the site is served at root (bobbyjones.xyz/notes/...) or
+// at a subpath (github.io/port_v2/notes/...).
+const WIKI_PATH_SEGMENT = "/notes/"
 const HOVER_DELAY_MS = 200
 const CLOSE_DELAY_MS = 220
 const NEST_OFFSET_PX = 24
@@ -34,7 +36,7 @@ function isWikiLink(a) {
   try {
     const u = new URL(a.href, window.location.href)
     // Same-origin, /notes/... path.
-    return u.origin === window.location.origin && u.pathname.startsWith(WIKI_PATH_PREFIX)
+    return u.origin === window.location.origin && u.pathname.includes(WIKI_PATH_SEGMENT)
   } catch {
     return false
   }
