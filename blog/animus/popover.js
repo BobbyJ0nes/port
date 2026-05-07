@@ -224,7 +224,9 @@ async function showPopoverFor(anchor, depth) {
 
   layer.el.innerHTML = ""
   if (fragment && fragment.childNodes.length > 0) {
-    layer.el.appendChild(fragment)
+    // Clone before appending — appending consumes the fragment's children,
+    // and the cache holds the same fragment for reuse on the next hover.
+    layer.el.appendChild(fragment.cloneNode(true))
     // Wire up child wiki-links inside this popover for the next depth.
     wireLinksInside(layer.el, depth + 1)
   } else {
