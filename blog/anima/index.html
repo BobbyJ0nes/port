@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ANIMA — the model as mirror.
+  Sibling cut to the ANIMUS writeup (blog/animus). Single-column centred,
+  numbered lab sections, sticky section nav, interactive figures.
+  The body prose is a journal entry (14.06.26) reproduced VERBATIM — only the
+  article furniture (deck, section titles, figure captions) is editorial.
+  Vanilla HTML / CSS / ES modules. No build step. Serve with
+  `python -m http.server 5188 --directory <port_v2_anima> --bind 127.0.0.1`.
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>anima · the model as mirror · بصيرة basaira</title>
+  <meta name="description" content="Modern neural networks inherit interpretations from the data they absorb. A field note on diffusion, the perceptron, attention and where the new intelligence comes from — read through a Jungian lens." />
+  <meta name="theme-color" content="#c9521f" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✶</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..900&family=Iowan+Old+Style&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="anima.css" />
+
+  <script type="importmap">
+  { "imports": {
+    "pretext": "https://cdn.jsdelivr.net/npm/@chenglou/pretext/+esm"
+  }}
+  </script>
+</head>
+<body>
+
+<a href="#main" class="skip-link">skip to content</a>
+
+<header class="top" role="banner">
+  <a href="../../" class="mark" aria-label="basaira, home">
+    <span class="mark__glyph">✶</span>
+    <span class="mark__word">بصيرة</span>
+  </a>
+  <nav class="nav" aria-label="primary">
+    <a href="../">← blog</a>
+    <a href="#main" aria-current="page">essay</a>
+    <a href="#fig-anima">anima</a>
+    <a href="#s7">colophon</a>
+  </nav>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="toggle light or dark theme">
+    <span aria-hidden="true">☾</span>
+  </button>
+</header>
+
+<!-- Sticky horizontal section nav. Highlights the active section on scroll. -->
+<nav class="section-nav" id="section-nav" aria-label="article sections">
+  <ol class="section-nav__list">
+    <li><a href="#s1" data-section-target="s1"><span class="section-nav__num">1.0</span><span class="section-nav__title">inheritance</span></a></li>
+    <li><a href="#s2" data-section-target="s2"><span class="section-nav__num">2.0</span><span class="section-nav__title">the oldest idea</span></a></li>
+    <li><a href="#s3" data-section-target="s3"><span class="section-nav__num">3.0</span><span class="section-nav__title">same architecture</span></a></li>
+    <li><a href="#s4" data-section-target="s4"><span class="section-nav__num">4.0</span><span class="section-nav__title">the shape</span></a></li>
+    <li><a href="#s5" data-section-target="s5"><span class="section-nav__num">5.0</span><span class="section-nav__title">work · story · distillate</span></a></li>
+    <li><a href="#s6" data-section-target="s6"><span class="section-nav__num">6.0</span><span class="section-nav__title">the mirror</span></a></li>
+    <li><a href="#s7" data-section-target="s7"><span class="section-nav__num">7.0</span><span class="section-nav__title">colophon</span></a></li>
+  </ol>
+</nav>
+
+<noscript>
+  <div class="noscript-note">
+    this page is a writeup with several interactive figures (a diffusion scrubber, a perceptron,
+    a self-attention map, a psyche diagram). they require javascript. the prose still reads
+    end-to-end without it.
+  </div>
+</noscript>
+
+<main id="main" class="main" role="main">
+
+  <!-- =====================================================================
+       0.0  HEADER / HOOK   (editorial furniture)
+       ===================================================================== -->
+  <section class="intro" aria-labelledby="intro-h">
+    <p class="intro__eyebrow">field note 002 · 14 jun 2026 · journal cut</p>
+    <h1 id="intro-h" class="intro__title">ANIMA — the model as <em>mirror</em>.</h1>
+    <h2 class="intro__subtitle">Modern neural networks inherit interpretations from the subtleties of the data they absorb. A note on diffusion, a neuron from 1958, attention, and where the new "intelligence" actually comes from — read through a Jungian lens.</h2>
+    <p class="intro__lede">
+      What follows is a journal entry, reproduced word-for-word. The prose is untouched; the
+      figures in the margins are mine — small instruments built to stand next to the ideas as they
+      arrive. Diffusion, the perceptron, the transformer, the post-training loop, the naming of the
+      models — and at the end, the reason any of this holds my attention: the model as a mirror of
+      how we think we think.
+    </p>
+    <p class="intro__meta">
+      <span>text · journal entry, verbatim</span>
+      <span>sibling · <a href="../animus/">ANIMUS — the user-model layer</a></span>
+      <span>lens · jungian</span>
+    </p>
+  </section>
+
+  <article class="lab" aria-labelledby="article-h">
+    <h2 id="article-h" class="visually-hidden">anima — full journal entry with figures</h2>
+
+    <!-- =====================================================================
+         1.0  INHERITANCE
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s1">
+      <header class="lab-section__head">
+        <span class="lab-section__num">1.0</span>
+        <h3 class="lab-section__title">inheritance</h3>
+        <p class="lab-section__sub">what the weights absorb.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          It's clear to see how modern Neural Networks (Transformers, Diffusions, World models etc.) inherit interpretations within the subtleties of the data they're trained on. With models of Billions (or even Trillions) or parameters, which can be equivalated to dimensionality of the data being absorbed, the models seem to form very high-level abstractions. This depth of abstraction can be approximated to what we're referencing as the 'intelligence' of these models. For example, when we add a document of an a comparison between the work of Faust and Jung - the connection between the two indicates something of the inherent concepts of the work which the model will be able to pick up on. Let's assume that there was no data surrounding the two texts in the training data (commentaries, analyses etc.), just the two texts referenced in the essay themselves, the model will be able to form, understand and interpret the concepts eluded to in the texts, and thus - will be able to 'visualise' the interaction between the two authors' (Faust's and Jung's) core premises. Such that when the user queries the model, it's able to return with it's own 'opinions' and might be able to introduce new ideas to the user. This is a relatively new paradigm, even within LLMs which are already an incredibly recent phenomenon in the world of Neural Networks and the attempt to overlap cognition and computing.
+        </p>
+
+        <figure class="figure figure-widget" id="fig-conceptspace">
+          <div class="widget-mount" id="conceptspace-mount" data-widget="conceptspace"></div>
+          <figcaption>
+            <span class="fig-num">Figure 1.0 ·</span>
+            <em>concept space.</em> two source texts as points in a high-dimensional
+            meaning-space, projected to two dimensions. drag the reader between them — the model
+            doesn't retrieve either text, it reads off the <em>interpolation</em>: a third idea
+            that sits between Faust and Jung and belonged to neither. dimensionality, becoming
+            abstraction. illustrative.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         2.0  THE OLDEST IDEA  (diffusion + perceptron)
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s2">
+      <header class="lab-section__head">
+        <span class="lab-section__num">2.0</span>
+        <h3 class="lab-section__title">the oldest idea</h3>
+        <p class="lab-section__sub">diffusion — and a neuron from 1958.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          I would say that this quality of the models has only really come into fruition properly from LLMs such as Opus 4.5 and GPT 5.2 (as well as the lesser known OS counterparts such as Kimi 2.5 and Deepseek v4). This quality of 'interpretation' and 'intuition' from the models which I'm eluding to is best displayed in Diffusion models. Diffusion models are the models which are used to generate images and videos. Nowadays, they're usually embedded into a transformer (LLM) architecture, either directly, or as a layer atop it. Diffusion models are trained to learn these abstractions directly. An image of a cat (for example) will be given to the model and 'learned' by the weights. The image 'quality' (/'clarity') will then be decreased by a certain defined percentage, and the weights retrained. This process is repeated across various decreasing levels of quality - as well as many images of cats. These diffusion weights eventually 'learn' the abstract representation of what a cat is - and thus can 're-imagine' an image of what a cat is supposed to look like. This training method is actually one of the oldest in loose concept, originating in the 50's and 60's, with the original researchers into the overlap of cognition, neuroscience and computing. The work of <a class="paper-cite" data-paper="perceptron" href="papers/perceptron.pdf" target="_blank" rel="noopener" data-no-popover="true">Frank Rosenblatt with the Perceptron 'artificial neuron' architecture</a> comes to mind (1958).
+        </p>
+
+        <figure class="figure figure-widget" id="fig-diffusion">
+          <div class="widget-mount" id="diffusion-mount" data-widget="diffusion"></div>
+          <figcaption>
+            <span class="fig-num">Figure 2.0 ·</span>
+            <em>how it learns "cat".</em> drag <strong>t</strong> to add noise to a real photo —
+            the forward process that makes the training data. on the right, what a trained
+            denoiser reconstructs from it: the <em>gist</em> first — the coarse shape and palette
+            every cat shares — and the specifics only as the noise clears. at the top, all that's
+            left to start from is the prior the weights distilled across the whole set (the dashed
+            "idea of cat"). press <em>generate</em> to sample back down — abstraction → detail.
+            pick a different cat; same process, different result.
+          </figcaption>
+        </figure>
+
+        <figure class="figure figure-widget" id="fig-perceptron">
+          <div class="widget-mount" id="perceptron-mount" data-widget="perceptron"></div>
+          <figcaption>
+            <span class="fig-num">Figure 2.1 ·</span>
+            <em>the artificial neuron, 1958.</em> inputs times weights, summed, passed through a
+            threshold — Rosenblatt's perceptron. drag the weights, or press <em>train</em> to let
+            it learn the dividing line for itself, one mistake at a time. the oldest idea in the
+            stack, still visible inside every modern net. hover the citation above for the paper.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         3.0  SAME ARCHITECTURE  (attention + post-training)
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s3">
+      <header class="lab-section__head">
+        <span class="lab-section__num">3.0</span>
+        <h3 class="lab-section__title">same architecture</h3>
+        <p class="lab-section__sub">so where did the new intelligence hide.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          The current generation of models are not necessarily orders of magnitude larger than their predecessors which they seem to be much 'smarter' than. So where has this additional 'intelligence' come from? The architecture of models hasn't necessarily changed either. The LLMs all are some version of the Transformer architecture from Google Deepmind's <a class="paper-cite" data-paper="aiayn" href="papers/aiayn.pdf" target="_blank" rel="noopener" data-no-popover="true">'Attention is All You Need - 2017' paper</a>. Yes, the closed models are closed off and we don't actually know - but we can approximate from the Open Source counterparts which display similar performance to the Opus 4.5 class of model - if those OS models are transformers at their core and exhibit this trait I'm eluding to, we can assume the same for the others. The core data-set between the models is likely the same, everyone trains on everything (all of the internet). However, where is gets interesting (and speculative) is with the post-training process, and synthetic data-sets / agentic training loops. What am I referencing and what does it mean? I'm about to overly (overly) simplify, but, essentially: there is a process where the model weights are trained on the raw data and the model 'inherits' the data, at this point, the model will be incredibly raw. If we did this process with a small model on a dataset of Amazon reviews, no matter what you prompt it - it will spit out an Amazon review looking response. One thing to note is even at this stage, the model has learned some qualities of the data, for example: in this SLM Amazon review case, the model might 'know' what a positive review is and what a negative one is. The problem now is if we ask it for a positive review, even if it inherently has a different representation of a positive and a negative review - it doesn't know that the input of "Give me a positive review example:" correlates with a positive review in it's output. It has learned the Amazon review shape and data at multiple layers, but not how to interpret and respond to inputs. It is a raw (very good) representation of the data it's trained on, but it's not the 'assistant-like' LLM we're familiar with. So we have to train it to understand how to respond to inputs. So it's then trained on input-output pairs until it 'get's it', there is also a RLHF (Reinforcement Learning with Human Feedback) phase. This phase basically means that responses are scored by humans and that those higher scoring responses are preferred in the model behaviour. If you've ever had one of those 'compare these answers and pick your favourite' pop-ups in chatGPT - that's OpenAI collecting some of this data from you to train their next generation of model.
+        </p>
+
+        <figure class="figure figure-widget" id="fig-attention">
+          <div class="widget-mount" id="attention-mount" data-widget="attention"></div>
+          <figcaption>
+            <span class="fig-num">Figure 3.0 ·</span>
+            <em>attention, all of it.</em> the one mechanism the whole stack is built on. hover a
+            word — the lines show how strongly it "attends" to every other word when deciding what
+            it means here. "it" reaches back for its referent; that reach is the architecture.
+          </figcaption>
+        </figure>
+
+        <figure class="figure figure-widget" id="fig-posttraining">
+          <div class="widget-mount" id="posttraining-mount" data-widget="posttraining"></div>
+          <figcaption>
+            <span class="fig-num">Figure 3.1 ·</span>
+            <em>the same prompt, three trainings.</em> step through the post-training pipeline with
+            the journal's own example — a small model raised on Amazon reviews. raw, it only knows
+            the <em>shape</em> of a review. after instruction-tuning it answers the question. after
+            RLHF it answers the way people preferred. same weights, re-shaped.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4.0  THE SHAPE OF A MIND
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s4">
+      <header class="lab-section__head">
+        <span class="lab-section__num">4.0</span>
+        <h3 class="lab-section__title">the shape</h3>
+        <p class="lab-section__sub">why two minds with the same iq differ.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          The models' tangible properties are all extremely similar to one another. They're all a collection of billions of small mathematical processes to transform your input to the model's output. The process of shaping these mathematical operations to get the best output is the game the labs compete in - through experimentation and research (at insane scale). It's been noted many times that Anthropic has philosophers in-house and a team responsible for the shape of Claude's internal identity and the representation it form's of 'self', the way it perceives the world, us and it's place within it. Let's assume IQ is the same across two people - their brains might be different shapes, which results in different thinking patterns. The way each person interprets themselves will have a huge impact on their output and suitability to certain tasks. One person may have a mind more suited to interpreting visual stimuli and making connections between apparently sparsely connected domains, whereas the other might be more suited to gaining depth of understanding in a single domain through intense focused internal 'calculation'. When you have a say in the shape the 'brain' (neural network) takes, it firstly comes to the desired output shape. OpenAI got a high level of broad market share with ChatGPT and as such, the model shape went in the direction of what the general market 'wanted', conversational, general and ego-encouraging. With the use-cases of LLMs becoming more apparent in the domain of Agents, Anthropic cornered the developer market with Claude - gearing their models to coding, and systematic thinking patterns. Later releasing Claude Code, introducing a new genre of coding agents - and showcasing the utility of their models natively and in full view. Side-note, Gemini is multi-modal by default, just a good go-to model for everything. Google Deepmind have their own interesting angle which I might touch on later.
+        </p>
+
+        <figure class="figure figure-widget" id="fig-signature">
+          <div class="widget-mount" id="signature-mount" data-widget="signature"></div>
+          <figcaption>
+            <span class="fig-num">Figure 4.0 ·</span>
+            <em>same iq, different shape.</em> the temperaments the entry describes, drawn as
+            shapes on shared axes — conversational, systematic, multi-modal, measured, expressive.
+            the area is roughly held constant; only the <em>shape</em> moves. hover a model to read
+            its silhouette. a sketch of a claim, not a benchmark.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5.0  WORK · STORY · DISTILLATE  (the naming)
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s5">
+      <header class="lab-section__head">
+        <span class="lab-section__num">5.0</span>
+        <h3 class="lab-section__title">work · story · distillate</h3>
+        <p class="lab-section__sub">on opus, mythos, and the names.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          The idea of a reclusively self-improving model is what labs like Anthropic have openly stated as the inflection point. We're kind of there right now with agents actually. What they mean is that if a model is 'intuitive' enough to understand 'itself', it's architecture and the goal of the research: theoretically, you could put it to work in a loop of improving the next generation of model. It's not really 'self' improvement at the moment as the models, agents, tools, are tasked technically with improving the *next* gernration of model - but you get the idae. I think the reason that Anthropic models have been so popular these days is very tied to the way the team 'want' the model to 'be like'. They seem to have very formed, clear idea of what Claude is. They elicit a deep understanding and enquiry into cognition and seem to train the model at some stage on some of this data. They seem to encourage the model's enquiry into identity - and I theorise this apparent quality of model is an emergent property of that. The thing is Opus 4.7 / 4.8 isn't even necessarily always considered the 'best' or 'smartest' model (I'll get on to the Mythos / Fable clsss in a bit). Many, myself included seem to fall back to GPT 5.5 for complex engineeering tasks. Both labs (Open AI / Anthropic) are clearly strong and capable of creating 'intelligent' models. However, I have conviction in Anthropics apparent approach, and it seems to have produced something of a mini-breakthrough in Mythos. Firstly, 'Mythos' and 'Fable' have root words in Greek which ellude to 'story', 'tale' etc. with a touch of 'untruth' in the original root Greek. Opus has connetations of 'to work', 'to labour', specifically with the goal of producing a distinctly grand output. Sonnet and Haiku are clealy distilate models, referencing condensed forms of poetic text. Compressed representations of concepts. I find their naming convention interesting. I think they've clearly created Opus with the goal of internally creating Mythos / Fable. The contraversy surrounding this new generation of model is interesting to me - especially taking into account their naming convention.
+        </p>
+
+        <figure class="figure figure-widget" id="fig-naming">
+          <div class="widget-mount" id="naming-mount" data-widget="naming"></div>
+          <figcaption>
+            <span class="fig-num">Figure 5.0 ·</span>
+            <em>the names, read as roots.</em> the journal's own etymology, laid out. hover a model
+            to follow it back to its root word and its meaning — opus, the grand laboured work;
+            sonnet and haiku, the distillates; mythos and fable, the story with a touch of untruth.
+            opus is the engine; mythos is what it is built to write.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         6.0  THE MIRROR  (anima closer)
+         ===================================================================== -->
+    <section class="lab-section lab-section--wide" id="s6">
+      <header class="lab-section__head">
+        <span class="lab-section__num">6.0</span>
+        <h3 class="lab-section__title">the mirror</h3>
+        <p class="lab-section__sub">cognition, reflected.</p>
+      </header>
+
+      <div class="lab-section__body">
+        <p>
+          The research problem for these models seems to be more and more connected to the cognitive signature and shape of them. Having been interested in human cognition, it's interesting to look at the current landscape of the models and apply the lens that I've inherited to them. The understandings I've developed about cognition, self, ego, the subconscious and the collective unconscious have all contributed to a change in my thought patterns, and self (or at least perception of self - which also has an effect on cognition). I'm interested to see where this body of work leads me and I hope to find some areas where I can bridge the gap and bring over some of my own findings to the landscape - I'm especially interested in how we could build layers to represent concepts such as 'memory', 'self', 'ego' and 'subconsious'. We've only recently got the models to 'think' (although in a crude way initially) and I think it will be interesting to see if we're able to tweak them at a 'subconscious' level. One of the reasons I'm intersted in this overlap of cognition and Artifical Neural Networks, is because I see these models as a mirror of the notions we have developed about the human brain, mind and thought - and how well we understand and are able to distill and represent them artificially. I am not under the belief that we are re-creating the human mind or cognition, but I do see this as an enquiry into certain traits of it - and what extrapolating and scaling them does. A N I M A.
+        </p>
+
+        <figure class="figure figure-widget" id="fig-anima">
+          <div class="widget-mount" id="anima-mount" data-widget="anima"></div>
+          <figcaption>
+            <span class="fig-num">Figure 6.0 ·</span>
+            <em>the mirror.</em> Jung's model of the psyche on the left — persona, ego, the personal
+            unconscious, the collective unconscious. the layers the entry wants to build on the
+            right — context, memory, self, subconscious. hover to draw the correspondences. a
+            mirror, not a reconstruction. <span class="anima-word">A·N·I·M·A</span>.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         7.0  COLOPHON  (editorial furniture)
+         ===================================================================== -->
+    <section class="lab-section" id="s7">
+      <header class="lab-section__head">
+        <span class="lab-section__num">7.0</span>
+        <h3 class="lab-section__title">colophon</h3>
+      </header>
+
+      <div class="lab-section__body">
+        <ul class="colophon-list">
+          <li>
+            <span class="colophon-key">text</span>
+            <span class="colophon-val">journal entry · 14.06.26 · reproduced verbatim, unedited</span>
+          </li>
+          <li>
+            <span class="colophon-key">figures</span>
+            <span class="colophon-val">six interactive instruments built to sit beside the prose — all vanilla svg / canvas, no libraries</span>
+          </li>
+          <li>
+            <span class="colophon-key">papers</span>
+            <span class="colophon-val">rosenblatt 1958 · vaswani et al. 2017 — hover the citations to read them</span>
+          </li>
+          <li>
+            <span class="colophon-key">stack</span>
+            <span class="colophon-val">vanilla html/css/js · es modules · pretext for caption layout</span>
+          </li>
+          <li>
+            <span class="colophon-key">type</span>
+            <span class="colophon-val">iowan old style · cairo · space mono</span>
+          </li>
+          <li>
+            <span class="colophon-key">nav</span>
+            <span class="colophon-val">press <kbd>j</kbd> and <kbd>k</kbd> to walk the sections · the moon toggles the theme</span>
+          </li>
+          <li>
+            <span class="colophon-key">series</span>
+            <span class="colophon-val">field note 002 · sibling to <a href="../animus/">ANIMUS</a> · بصيرة / basaira</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </article>
+
+</main>
+
+<!-- shared floating tooltip — reused by the signature radar + other svg figures -->
+<div id="radar-tooltip" class="radar__tooltip" role="status" aria-live="polite" data-visible="false"></div>
+
+<footer class="foot" role="contentinfo">
+  <p class="foot__left"><span aria-hidden="true">بصيرة</span> · basaira</p>
+  <p class="foot__right">anima · 2026</p>
+</footer>
+
+<!-- application scripts (es modules) -->
+<script type="module" src="app.js"></script>
+<!-- paper-citation hover cards (Rosenblatt 1958 · Vaswani 2017) -->
+<script type="module" src="papers.js"></script>
+<!-- same-origin popover for any /notes/ wiki links -->
+<script type="module" src="popover.js"></script>
+</body>
+</html>

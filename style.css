@@ -230,6 +230,8 @@ img, video { max-width: 100%; height: auto; display: block; }
 .card__thumb--studio::before    { background: linear-gradient(135deg, #009880, #0d0e10 46%, #c0105a 100%); }
 .card__thumb--makaira::before   { background: linear-gradient(135deg, #1c2840, #0e1828 42%, #c9521f 100%); }
 .card__thumb--animus::before    { background: radial-gradient(circle at 30% 40%, #c9521f, #2a1410 75%); }
+/* anima — the mirror sibling: hue + corner mirrored from animus (teal, opposite side) */
+.card__thumb--anima::before     { background: radial-gradient(circle at 70% 60%, #38b2a8, #10211f 78%); }
 
 /* Featured card — spans the grid on wider viewports. The thumb shrinks to a
    short banner and the body sits beside it on desktop, so the card reads more
