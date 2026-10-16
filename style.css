@@ -196,6 +196,10 @@ img, video { max-width: 100%; height: auto; display: block; }
 @media (min-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
 }
+/* Article siblings share the row equally; project grids keep three columns. */
+@media (min-width: 720px) {
+  .grid--articles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 .card { background: var(--bg-soft); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; transition: transform .25s ease, border-color .25s ease; }
 .card:hover { border-color: var(--ink-faint); transform: translateY(-2px); }
@@ -232,28 +236,6 @@ img, video { max-width: 100%; height: auto; display: block; }
 .card__thumb--animus::before    { background: radial-gradient(circle at 30% 40%, #c9521f, #2a1410 75%); }
 /* anima — the mirror sibling: hue + corner mirrored from animus (teal, opposite side) */
 .card__thumb--anima::before     { background: radial-gradient(circle at 70% 60%, #38b2a8, #10211f 78%); }
-
-/* Featured card — spans the grid on wider viewports. The thumb shrinks to a
-   short banner and the body sits beside it on desktop, so the card reads more
-   like a lead headline than a tile. */
-.card--feature { grid-column: 1 / -1; }
-.card--feature .card__link { grid-template-rows: auto auto; }
-.card--feature .card__thumb { aspect-ratio: 16 / 7; }
-.card--feature .card__title { font-size: 1.7rem; }
-.card--feature .card__blurb { font-size: 1rem; max-width: 64ch; }
-@media (min-width: 720px) {
-  .card--feature .card__link {
-    grid-template-columns: 1.1fr 1fr;
-    grid-template-rows: 1fr;
-  }
-  .card--feature .card__thumb { aspect-ratio: auto; min-height: 100%; }
-  .card--feature .card__body  { padding: 1.5rem 1.6rem 1.6rem; align-self: center; }
-  .card--feature .card__title { font-size: 2rem; }
-}
-@media (min-width: 1100px) {
-  .card--feature .card__title { font-size: 2.4rem; line-height: 1.1; }
-  .card--feature .card__body  { padding: 2rem 2.2rem; }
-}
 
 .card--external .card__link { position: relative; }
 .card__ext { display: inline-block; font-family: var(--font-mono); font-size: .85em; opacity: .6; margin-left: .25em; }

@@ -46,10 +46,10 @@ no spaces, no underscores.
 
 ## listing the post on the blog index
 
-`blog/index.html` has the featured-card markup:
+`blog/index.html` lists equally weighted cards inside `.grid--articles`:
 
 ```html
-<li class="card card--feature">
+<li class="card">
   <a href="<your-slug>/" class="card__link" aria-label="…">
     <div class="card__thumb card__thumb--<your-slug>" aria-hidden="true">
       <span class="card__tag">essay · {n} min read</span>
@@ -74,12 +74,13 @@ then in `style.css` add a tonal gradient for the thumb:
 terracotta-toned for analytical pieces, teal for technical, dark for
 sombre/personal — match the post's voice.
 
-## featuring on the home page
+## selecting articles for the home page
 
-if a post is your current lead, also add the same card to
-`index.html` under the `✶ writing` section (see ANIMUS's card there).
-the home page should feature **at most one** post at a time. when a
-new one ships, demote the previous one to blog/index.html only.
+add selected articles to `index.html` under the `✶ writing` section,
+inside `.grid--articles`. ANIMA and ANIMUS use the same `.card` markup,
+thumbnail proportions and title size: neither is a featured lead.
+articles sit in two equal columns from 720px up and stack below that.
+the separate project grid still expands to three columns on desktop.
 
 ## linking into the wiki
 
@@ -129,6 +130,7 @@ extract it into `blog/_shared/` and document it here.
 - [ ] popovers work on hover (test at least one wiki-link)
 - [ ] theme toggle persists across `blog/<slug>/` and the home page
 - [ ] post is added to `blog/index.html`
-- [ ] (if it's the lead) post is featured on `index.html`
+- [ ] (if selected for the home page) post is also listed on `index.html`
+- [ ] article cards have equal visual weight on desktop and stack on mobile
 - [ ] no console errors in playwright or chrome devtools
 - [ ] mobile responsive at <720px
